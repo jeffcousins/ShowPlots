@@ -16,30 +16,27 @@
           <h1 class="text-center">Should I Watch This?</h1>
         </header>
         <!-- d3 graph section -->
-        <div id="graphContainer" class="col-md-12">
+        <div id="graphContainer" class="col-md-12 col-xs-12 col-lg-12 col-sm-12">
+
           <graph></graph>
         </div>
 
-        <!-- search results info -->
-        <section class="showInfo"></section>
-
-        <!-- verdict -->
-        <section class="verdict"></section>
-
         <!-- search bar -->
-        <form class="search form-inline form-horizontal" ng-submit="submit()">
-          <div class="row">
-            <input id="searchBar" class="form-control input-lg" type="text" name="name" ng-model="query" placeholder="Should I watch this?">
-            <input id="submitButton" class="form-control input-lg" type="submit" name="name" value="Go">
-          </div>
-        </form>
-
+        <div id="search">
+          <form class="search form-inline form-horizontal" ng-submit="submit()">
+            <div class="row">
+              <input id="searchBar" class="form-control input col-xs-8" type="text" name="name" ng-model="query" placeholder="Should I watch this?">
+              <input id="submitButton" class="form-control input col-xs-4" type="submit" name="name" value="Go">
+            </div>
+          </form>
+        </div>
       </div>
 
     </div>
     <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
     <script src="https://d3js.org/d3.v3.min.js" charset="utf-8"></script>
     <script src="http://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script>
+    <script src="public/src/drawGraph.js"></script>
     <script src="public/src/graph.js"></script>
   </body>
 </html>
