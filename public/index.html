@@ -7,12 +7,14 @@
     crossorigin="anonymous">
      <link rel="stylesheet" type="text/css" href="style.css">
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.min.js"></script>
-
+    <script src="../node_modules/moviedb/moviedb.min.js"></script>
     <script src="src/input.js"></script>
     <script src="src/tooltip.js"></script>
     <script src="src/app.js"></script>
   </head>
   <body>
+    <div id="vignette"></div>
+    <img src="http://image.tmdb.org/t/p/original/uv5BRIaJKfcPBPEBV8qfTjD6PuY.jpg" id="bg">
     <div class="container" ng-app="app" ng-controller="appCtrl">
       <div class="row">
         <header id="mainHeader">

@@ -40,6 +40,27 @@ app.controller('appCtrl', function($scope, $http) {
       });
     };
 
+    // ------ TheMovieDB.org API ------ //
+    var getBackdrop = function() {
+      var base = 'http://api.themoviedb.org/3/search/tv';
+      var apiKey = '5fa7832c6fecbcc0b59712892ca52fca';
+      var callback = 'JSON_CALLBACK'; // provided by angular.js
+      var url = base + '?api_key=' + apiKey + '&query=' + queryString + '&callback=' + callback;
+
+      $http.jsonp(url)
+        .then(function(res, status) { 
+          if (res.data.total_results) {
+            console.log('total_results === ' + res.data.total_results);
+            var backdropPath = res.data.results[0].backdrop_path;
+            $('#bg').attr('src', 'http://image.tmdb.org/t/p/original' + backdropPath);
+          }
+        },function(data, status) {
+          console.log(data);
+          console.log(status);
+        });
+    };
+
+    getBackdrop();
     getAllSeasons(season);
   };
 });
