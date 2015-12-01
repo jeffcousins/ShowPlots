@@ -69,6 +69,7 @@ var seasonScore = [];
   var tip = d3.tip()
     .attr('class', 'd3-tip')
     .offset([-10, 0])
+
     .html(function(d) {
       return "<strong>Title:</strong> <span style='color:#2FFF4D'>" + d[0] + "</span>" + "<br>" + "<strong>Rating:</strong> <span style='color:#2FFF4D'>" + d[1] + "</span>" + "<br>" + "<strong>Season:</strong> <span style='color:#2FFF4D'>" + d[2] + "</span>" + "<br>" + "<strong>Episode:</strong> <span style='color:#2FFF4D'>" + d[3] + "</span>";
     });

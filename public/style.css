@@ -1,4 +1,4 @@
-body {
+/*body {
   background-color: #111;
   -webkit-touch-callout: none;
   -webkit-user-select: none;
@@ -6,12 +6,12 @@ body {
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
-}
-div {
+}*/
+/*div {
   marin: 20px auto 0;
   colo: #aaa;
   font-weight: 100;
-}
+}*/
 svg {
   postion: absolute;
   top: 0%;

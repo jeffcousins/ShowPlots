@@ -9,6 +9,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.min.js"></script>
 
     <script src="src/input.js"></script>
+    <script src="src/tooltip.js"></script>
     <script src="src/app.js"></script>
   </head>
   <body>
@@ -20,14 +21,12 @@
         <!-- d3 graph section -->
         <div id="graphContainer" class="col-md-12 col-xs-12 col-lg-12 col-sm-12">
 
-          <graph></graph>
+          <graph ng-show="graphShown"></graph>
         </div>
 
         <!-- search bar -->
         <search-input></search-input>
       </div>
-      
-
     </div>
     <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
     <script src="https://d3js.org/d3.v3.min.js" charset="utf-8"></script>
