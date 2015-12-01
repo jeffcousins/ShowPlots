@@ -4,14 +4,16 @@
 //Need Width, Height, Padding, Based on Object
 //(Would like to use percentages for dynamic sizing based on browser)
 
+
 app.directive('graph', function($parse, $window) {
   return {
     restrict: 'EA',
     template: '<section class="graph"><div id="graph"></div></section>',
-    link: function(scope, elem, attrs) {
+    link: function(scope, elem, attrs, ctrl) {
+
       scope.$watchCollection('results', function(newVal, oldVal) {
         data_url = newVal || {};
-        drawGraph();
+        drawGraph(scope.select);
       });
     }
   };

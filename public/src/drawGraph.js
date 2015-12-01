@@ -13,9 +13,8 @@ var seasonAvg = [];
 
 
 
-var drawGraph = function(trendLineStrokeColor) {
+var drawGraph = function(clickCallback, trendLineStrokeColor) {
   trendLineStrokeColor = trendLineStrokeColor || "rgb(0, 0, 0)";
-
   //clear datasets if graphing new show changed
   if (data_url['Title'] !== showName) {
     console.log('reset');
@@ -57,7 +56,7 @@ var drawGraph = function(trendLineStrokeColor) {
       //fill the d3 dataset variables
       episodedataset.push([epId, rating, id]);
       ratingdataset.push(rating);
-      infoset.push([showTitle, rating, season, epNum]);
+      infoset.push([showTitle, rating, season, epNum, id]);
       seasonAvg.push([season, rating]);
       epId++;
     }
@@ -233,7 +232,6 @@ var seasonScore = [];
     .data(episodedataset)
     .enter()
     .append("a")
-    .attr("xlink:href", function(d){return 'http://www.imdb.com/title/'+ d[2]})
     .append('circle');
 
 
@@ -297,6 +295,16 @@ svg.selectAll('circle').data(infoset).on('mouseover', function(d) {
             .attr("r", 7)
             .style("fill", "#2FFF4D");
             tip.hide(d);
+          })
+          .on('click', function(d) {
+            console.log('clicked: ' + d);
+            var info = {};
+            info.title = d[0];
+            info.rating = d[1];
+            info.season = d[2];
+            info.episode = d[3];
+            info.imdbId = d[4];
+            clickCallback(info);
           })
 
 
