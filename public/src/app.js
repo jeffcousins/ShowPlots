@@ -1,5 +1,5 @@
 // instantiate an angular app
-var app = angular.module('app', ['app.searchInputDirective']);
+var app = angular.module('app', ['app.searchInputDirective', 'app.tooltipDirective']);
   // declare one controller for the app
 app.controller('appCtrl', function($scope, $http) {
   // * scope will have the query string as a variable
@@ -11,6 +11,7 @@ app.controller('appCtrl', function($scope, $http) {
 
   // * search function
   $scope.submit = function() {
+    $scope.graphShown = true;
     // - make call to AJAX factory
     $scope.results = {};
     var season = 1;
