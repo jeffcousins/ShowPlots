@@ -21,7 +21,10 @@ app.controller('appCtrl', function($scope, $http) {
     	$http({
     		//need to handle url spaces
     		method: 'GET',
-        params: {t: queryString, type: 'series', season: seasonNumber},
+        params: {
+          t: queryString, 
+          type: 'series', 
+          season: seasonNumber},
     		url: 'http://www.omdbapi.com/?',
     	}).then(function(res) {
         console.log(res);
