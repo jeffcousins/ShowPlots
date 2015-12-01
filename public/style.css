@@ -95,3 +95,7 @@ svg {
   color: white;
   margin-bottom: 50px;
 }
+
+.area {
+  fill: blue;
+}

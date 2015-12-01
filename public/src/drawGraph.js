@@ -213,13 +213,17 @@ var seasonScore = [];
   var path = svg.append('path')
     .attr({
       'd': lines(episodedataset),
+      'class': 'area',
       'class': 'lineChart'
+      
     });
+
+   
 
   svg.select('.lineChart')
     .style('opacity', 0)
     .transition()
-    .duration(2500)
+    .duration(1000)
     .delay(1000)
     .style('opacity', 1);
 
@@ -256,11 +260,15 @@ var seasonScore = [];
     })
     .style('opacity', 1);
 
+  var area = d3.svg.area()
+    .x(function(d) { return x(d[0]); })
+    .y0(function(d) { return y(d[1]-3); })
+    .y1(function(d) { return y(d[1]+3); });
+
    
-
-
   d3.timer(trendLine, 3500)
-    
+  
+
 
   d3.select('#graph svg')
     .append("text")
