@@ -1,5 +1,5 @@
 // instantiate an angular app
-var app = angular.module('app', []);
+var app = angular.module('app', ['app.searchInputDirective']);
   // declare one controller for the app
 app.controller('appCtrl', function($scope, $http) {
   // * scope will have the query string as a variable
@@ -7,6 +7,7 @@ app.controller('appCtrl', function($scope, $http) {
   // * show meta data as an object (reponse from AJAX call?)
   $scope.results = [];
   // * d3 object / data set (when data is changed page is update)
+  $scope.graphShown = false;
 
   // * search function
   $scope.submit = function() {

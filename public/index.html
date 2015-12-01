@@ -5,9 +5,11 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css"
     integrity="sha512-dTfge/zgoMYpP7QbHy4gWMEGsbsdZeCXz7irItjcC3sPUFtf0kuFbDz/ixG7ArTxmDjLXDmezHubeNikyKGVyQ=="
     crossorigin="anonymous">
-     <link rel="stylesheet" type="text/css" href="public/style.css">
+     <link rel="stylesheet" type="text/css" href="style.css">
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.min.js"></script>
-    <script src="public/src/app.js"></script>
+
+    <script src="src/input.js"></script>
+    <script src="src/app.js"></script>
   </head>
   <body>
     <div class="container" ng-app="app" ng-controller="appCtrl">
@@ -22,21 +24,15 @@
         </div>
 
         <!-- search bar -->
-        <div id="search">
-          <form class="search form-inline form-horizontal" ng-submit="submit()">
-            <div class="row">
-              <input id="searchBar" class="form-control input col-xs-8" type="text" name="name" ng-model="query" placeholder="Should I watch this?">
-              <input id="submitButton" class="form-control input col-xs-4" type="submit" name="name" value="Go">
-            </div>
-          </form>
-        </div>
+        <search-input></search-input>
       </div>
+      
 
     </div>
     <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
     <script src="https://d3js.org/d3.v3.min.js" charset="utf-8"></script>
     <script src="http://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script>
-    <script src="public/src/drawGraph.js"></script>
-    <script src="public/src/graph.js"></script>
+    <script src="src/drawGraph.js"></script>
+    <script src="src/graph.js"></script>
   </body>
 </html>
