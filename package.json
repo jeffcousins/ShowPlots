@@ -1,0 +1,30 @@
+{
+  "name": "shouldiwatchthis",
+  "version": "1.0.0",
+  "description": "> An app that anyone can use instantly, to chart IMDB user ratings for their favorite shows, by episode.",
+  "main": "index.js",
+  "dependencies": {
+    "cookie-parser": "^1.4.0",
+    "body-parser": "^1.14.1",
+    "express": "^4.13.3",
+    "serve-favicon": "^2.3.0",
+    "path": "^0.12.7",
+    "morgan": "^1.6.1"
+  },
+  "devDependencies": {
+    "mocha": "^2.3.4"
+  },
+  "scripts": {
+    "start": "nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/apedley/Should-I-Watch-This.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/apedley/Should-I-Watch-This/issues"
+  },
+  "homepage": "https://github.com/apedley/Should-I-Watch-This"
+}
