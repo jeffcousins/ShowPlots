@@ -11,6 +11,9 @@ var infoset = [];
 var showName = '';
 var seasonAvg = [];
 
+
+
+
 var drawGraph = function() {
 
   //clear datasets if graphing new show changed
@@ -20,6 +23,7 @@ var drawGraph = function() {
     episodedataset = [];
     ratingdataset = [];
     infoset = [];
+   
   }
   //update showName
   showName = data_url['Title'];
@@ -49,8 +53,9 @@ var drawGraph = function() {
       var rating = parseFloat(episode["imdbRating"]);
       var showTitle = episode["Title"];
       var season = parseInt(data_url["Season"]);
+      var id = episode["imdbID"];
       //fill the d3 dataset variables
-      episodedataset.push([epId, rating]);
+      episodedataset.push([epId, rating, id]);
       ratingdataset.push(rating);
       infoset.push([showTitle, rating, season, epNum]);
       seasonAvg.push([season, rating]);
@@ -67,6 +72,68 @@ var seasonScore = [];
     .html(function(d) {
       return "<strong>Title:</strong> <span style='color:#2FFF4D'>" + d[0] + "</span>" + "<br>" + "<strong>Rating:</strong> <span style='color:#2FFF4D'>" + d[1] + "</span>" + "<br>" + "<strong>Season:</strong> <span style='color:#2FFF4D'>" + d[2] + "</span>" + "<br>" + "<strong>Episode:</strong> <span style='color:#2FFF4D'>" + d[3] + "</span>";
     });
+
+  var trendLine = function() {
+    var x1 = 0;
+    var y1 = 0;
+    var x2 = 0;
+    var y2 = 0;
+    var len = episodedataset.length;
+
+    each(episodedataset, function(item, index) {
+      x1 += item[0];
+    });
+
+    each(episodedataset, function(item, index) {
+      y1 += item[1];
+    });
+
+    each(episodedataset, function(item, index) {
+      x2 += (item[0] * item[1]);
+    });
+
+    each(episodedataset, function(item, index) {
+      y2 += (item[0] * item[0]);
+    });
+
+    var slope = (((len * x2) - (x1 * y1)) / ((len * y2) - (x1 * x1)))
+    var intercept = ((y1 - (slope * x1)) / len)
+    var xLabels = episodedataset.map(function(d) {
+      return d[0];
+    });
+    var xSeries = d3.range(1, xLabels.length + 1);
+    var ySeries = episodedataset.map(function(d) {
+      return d[1];
+    });
+    var a1 = xLabels[0];
+    var b1 = slope + intercept;
+    var a2 = xLabels[xLabels.length - 1];
+    var b2 = slope * xSeries.length + intercept;
+    var trendData = [
+      [a1, b1, a2, b2]
+    ];
+    var trendLine = svg.select()
+    var trendline = svg.selectAll(".trendline")
+      .data(trendData);
+
+    trendline.enter()
+      .append("line")
+      .attr("class", "trendline")
+      .attr("x1", function(d) {
+        return xScale(d[0]);
+      })
+      .attr("y1", function(d) {
+        return yScale(d[1]);
+      })
+      .attr("x2", function(d) {
+        return xScale(d[2]);
+      })
+      .attr("y2", function(d) {
+        return yScale(d[3]);
+      })
+      .style("stroke", "rgb(47,255,77)")   
+  };
+
 
   //Define Graph Space, Initialize d3 (This sets how big the div is)
   d3.selectAll('svg')
@@ -160,14 +227,18 @@ var seasonScore = [];
   var points = svg.selectAll('circle')
     .data(episodedataset)
     .enter()
+    .append("a")
+    .attr("xlink:href", function(d){return 'http://www.imdb.com/title/'+ d[2]})
     .append('circle');
+
+
 
   /*point attributes*/
   points.attr('cy', 0)
     .transition()
-    .duration(1500)
+    .duration(500)
     .delay(function(d, i) {
-      return (i * 100) + 500;
+      return (i * 100) + 100;
     })
     .ease('elastic')
     .attr({
@@ -185,6 +256,12 @@ var seasonScore = [];
     })
     .style('opacity', 1);
 
+   
+
+
+  d3.timer(trendLine, 3500)
+    
+
   d3.select('#graph svg')
     .append("text")
     .attr("x", w / 2)
@@ -193,167 +270,24 @@ var seasonScore = [];
     .style("fill", "#2FFF4D")
     .text(showName);
 
-svg.selectAll('circle').data(infoset).on('mouseover', tip.show).on('mouseout', tip.hide);
-  
-  var trendLine = function() {
-    var x1 = 0;
-    var y1 = 0;
-    var x2 = 0;
-    var y2 = 0;
-    var len = episodedataset.length;
 
-    each(episodedataset, function(item, index) {
-      x1 += item[0];
-    });
+svg.selectAll('circle').data(infoset).on('mouseover', function(d) {
+        d3.select(this).transition()
+            .ease("elastic")
+            .duration("500")
+            .attr("r", 12)
+            .style("fill", "#FF0000");
+            tip.show(d);
+            
+          })
+.on('mouseout', function(d) {
+        d3.select(this).transition()
+            .ease("elastic")
+            .duration("500")
+            .attr("r", 7)
+            .style("fill", "#2FFF4D");
+            tip.hide(d);
+          })
 
-    each(episodedataset, function(item, index) {
-      y1 += item[1];
-    });
 
-    each(episodedataset, function(item, index) {
-      x2 += (item[0] * item[1]);
-    });
-
-    each(episodedataset, function(item, index) {
-      y2 += (item[0] * item[0]);
-    });
-
-    var slope = (((len * x2) - (x1 * y1)) / ((len * y2) - (x1 * x1)))
-    var intercept = ((y1 - (slope * x1)) / len)
-    var xLabels = episodedataset.map(function(d) {
-      return d[0];
-    });
-    var xSeries = d3.range(1, xLabels.length + 1);
-    var ySeries = episodedataset.map(function(d) {
-      return d[1];
-    });
-    var a1 = xLabels[0];
-    var b1 = slope + intercept;
-    var a2 = xLabels[xLabels.length - 1];
-    var b2 = slope * xSeries.length + intercept;
-    var trendData = [
-      [a1, b1, a2, b2]
-    ];
-    var trendLine = svg.select()
-    var trendline = svg.selectAll(".trendline")
-      .data(trendData);
-
-    trendline.enter()
-      .append("line")
-      .attr("class", "trendline")
-      .attr("x1", function(d) {
-        return xScale(d[0]);
-      })
-      .attr("y1", function(d) {
-        return yScale(d[1]);
-      })
-      .attr("x2", function(d) {
-        return xScale(d[2]);
-      })
-      .attr("y2", function(d) {
-        return yScale(d[3]);
-      })
-      .style("stroke", "rgb(47,255,77)")   
-    //ShouldI function
-    var avg = y1 / len;
-    if (avg >= 7) {
-      if (slope > .05) {
-        d3.select('#graph svg')
-          .append("text")
-          .attr("x", w / 2)
-          .attr("y", 350)
-          .attr("text-anchor", "middle")
-          .style("fill", "#2FFF4D")
-          .attr("font-size", "34px")
-          .text("You're Missing Out!");
-      } else if(slope > 0){
-        d3.select('#graph svg')
-          .append("text")
-          .attr("x", w/2)             
-          .attr("y", 350)
-          .attr("text-anchor", "middle") 
-          .style("fill", "#2FFF4D")
-          .attr("font-size", "34px")
-          .text("Yes!");
-        }else if (slope < 0 && slope > -0.03) {
-        d3.select('#graph svg')
-          .append("text")
-          .attr("x", w / 2)
-          .attr("y", 350)
-          .attr("text-anchor", "middle")
-          .style("fill", "#2FFF4D")
-          .attr("font-size", "34px")
-          .text("Sure");
-      } else if (slope < 0 && slope > -0.04) {
-        d3.select('#graph svg')
-          .append("text")
-          .attr("x", w / 2)
-          .attr("y", 350)
-          .attr("text-anchor", "middle")
-          .style("fill", "#2FFF4D")
-          .attr("font-size", "34px")
-          .text("Meh.");
-      } else {
-        d3.select('#graph svg')
-          .append("text")
-          .attr("x", w / 2)
-          .attr("y", 350)
-          .attr("text-anchor", "middle")
-          .style("fill", "#2FFF4D")
-          .attr("font-size", "34px")
-          .text("Eeeeh...");
-      }
-    } else {
-      if (slope > .05) {
-        d3.select('#graph svg')
-          .append("text")
-          .attr("x", w / 2)
-          .attr("y", 350)
-          .attr("text-anchor", "middle")
-          .style("fill", "#2FFF4D")
-          .attr("font-size", "34px")
-          .text("Go For It!");
-      } else if (slope > 0.03) {
-        d3.select('#graph svg')
-          .append("text")
-          .attr("x", w / 2)
-          .attr("y", 350)
-          .attr("text-anchor", "middle")
-          .style("fill", "#2FFF4D")
-          .attr("font-size", "34px")
-          .text("Yup");
-      } else if (slope > 0) {
-        d3.select('#graph svg')
-          .append("text")
-          .attr("x", w / 2)
-          .attr("y", 350)
-          .attr("text-anchor", "middle")
-          .style("fill", "#2FFF4D")
-          .attr("font-size", "34px")
-          .text("Eeeeh...");
-      } else if (slope < 0 && slope > -0.04) {
-        d3.select('#graph svg')
-          .append("text")
-          .attr("x", w / 2)
-          .attr("y", 350)
-          .attr("text-anchor", "middle")
-          .style("fill", "#2FFF4D")
-          .attr("font-size", "34px")
-          .text("No.");
-      } else {
-        d3.select('#graph svg')
-          .append("text")
-          .attr("x", w / 2)
-          .attr("y", 350)
-          .attr("text-anchor", "middle")
-          .style("fill", "#2FFF4D")
-          .attr("font-size", "34px")
-          .text("HAHAHA...Oh You were Serious...");
-      }        
-    }
-  };
-  //d3.select('#graph svg').text('');
-  if (data_url["Title"] !== undefined){
-    trendLine(); 
-  }
 };
