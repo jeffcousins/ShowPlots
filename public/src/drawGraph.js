@@ -13,8 +13,8 @@ var seasonAvg = [];
 
 
 
-
-var drawGraph = function() {
+var drawGraph = function(trendLineStrokeColor) {
+  trendLineStrokeColor = trendLineStrokeColor || "rgb(0, 0, 0)";
 
   //clear datasets if graphing new show changed
   if (data_url['Title'] !== showName) {
@@ -132,7 +132,7 @@ var seasonScore = [];
       .attr("y2", function(d) {
         return yScale(d[3]);
       })
-      .style("stroke", "rgb(47,255,77)")   
+      .style("stroke", trendLineStrokeColor)   
   };
 
 
@@ -276,7 +276,8 @@ var seasonScore = [];
     .attr("x", w / 2)
     .attr("y", 14)
     .attr("text-anchor", "middle")
-    .style("fill", "#2FFF4D")
+    .attr('class', 'trendLine')
+    .style("fill", trendLineStrokeColor)
     .text(showName);
 
 

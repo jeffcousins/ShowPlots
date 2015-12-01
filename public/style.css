@@ -23,7 +23,7 @@ svg {
 .xaxis line,
 .yaxis path,
 .yaxis line {
-    stroke: #aaa;
+    stroke: #000;
     fill: none;
     shape-rendering: crispEdges;
 }
@@ -32,20 +32,23 @@ svg {
 .yaxis text {
     font-family: sans-serif;
     font-size: 11px;
-    fill: #aaa;
+    fill: #000;
 }
 
 .datapoint {
     cursor: pointer;
     stroke: #111;
-    fill: rgba(47, 255, 77, .75);
+    /*fill: rgba(47, 255, 77, 1);*/
+    fill: rgba(255, 255, 255, 1);
     stroke-width: 7;
 }
-
+.trendline {
+  stroke-width: 3;
+}
 .lineChart {
     fill: none;
     stroke-width: 3;
-    stroke: rgba(100,100,100, 0.4);
+    stroke: rgba(100,100,100, 1);
 }
 
 .d3-tip {
