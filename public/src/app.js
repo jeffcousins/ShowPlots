@@ -64,12 +64,12 @@ app.controller('appCtrl', function($scope, $http) {
             var backdropPath = res.data.results[0].backdrop_path;
 
             // change background
-            $('#blackout').fadeIn('fast')
+            $('#blackout').fadeIn(100)
               .queue(function(next) { 
                 $('#bg').attr('src', 'http://image.tmdb.org/t/p/original' + backdropPath);
                 next();
               })
-              .fadeOut(1800);
+              .fadeOut(600);
           }
         }, function(data, status) {
           // error getting TheMovieDB data
