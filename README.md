@@ -1,52 +1,31 @@
-# Project Name - Should I Watch This?
+# Should I Watch This?
 
-> An app that anyone can use instantly, to chart IMDB user ratings for their favorite shows, by episode.
-
-## Team - Samurai
-
-  - __Product Owner__: Aaron Phillips
-  - __Scrum Master__: Ryan Price (Tom Cruise)
-  - __Development Team Members__: Casey Woolley, Eric Hollenberry
+> An app that anyone can use instantly, to chart IMDB user ratings for their favorite shows by episode. Also displays links to watch or purchase those episodes.
 
 ## Table of Contents
 
-1. [Usage](#Usage)
-1. [Requirements](#requirements)
-1. [Development](#development)
-    1. [Installing Dependencies](#installing-dependencies)
-    1. [Tasks](#tasks)
 1. [Team](#team)
+1. [Development](#development)
+    1. [Tasks](#roadmap)
 1. [Contributing](#contributing)
+    1. [Style Guide](#style-guide)
 
-## Usage
+## Team
 
-> Some usage instructions
-
-## Requirements
-
-- Node 0.10.x
-- Redis 2.6.x
-- Postgresql 9.1.x
-- etc
-- etc
+  - __Product Owner__: Eugene
+  - __Scrum Master__: Luke
+  - __Development Team Members__: Jeff, Zach, Andrew
 
 ## Development
 
-### Installing Dependencies
-
-From within the root directory:
-
-```sh
-sudo npm install -g bower
-npm install
-bower install
-```
-
 ### Roadmap
 
-View the project roadmap [here](LINK_TO_PROJECT_ISSUES)
-
+View the project roadmap [here](https://github.com/HR10Knights/Should-I-Watch-This/issues)
 
 ## Contributing
 
 See [CONTRIBUTING.md](CONTRIBUTING.md) for contribution guidelines.
+
+### Style Guide
+
+See [STYLE-GUIDE.md](STYLE-GUIDE.md) for contribution guidelines.
