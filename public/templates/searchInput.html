@@ -5,11 +5,11 @@
            ng-disabled="disabled"
            reset-search-input="false"
            style="width: 300px;">
-  <ui-select-match placeholder="Type in a TV show...">{{$select.selected.Title}}</ui-select-match>
+  <ui-select-match placeholder="Type in a TV show...">{{$select.selected.name}}</ui-select-match>
   <ui-select-choices repeat="show in shows track by $index"
            refresh="refreshShows($select.search)"
            refresh-delay="0">
-    <div ng-bind-html="show.Title | highlight: $select.search"></div>
+    <div ng-bind-html="show.name | highlight: $select.search"></div>
   </ui-select-choices>
 </ui-select>
 </div>
