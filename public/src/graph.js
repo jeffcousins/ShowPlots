@@ -5,13 +5,13 @@
 //(Would like to use percentages for dynamic sizing based on browser)
 
 
-app.directive('graph', function($parse, $window) {
+app.directive('graph', function($parse, $window, $rootScope) {
   return {
     restrict: 'EA',
     template: '<section class="graph"><div id="graph"></div></section>',
     link: function(scope, elem, attrs, ctrl) {
 
-      scope.$watchCollection('results', function(newVal, oldVal) {
+      $rootScope.$watchCollection('results', function(newVal, oldVal) {
         data_url = newVal || {};
         drawGraph(scope.select);
       });
