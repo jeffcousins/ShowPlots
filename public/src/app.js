@@ -1,8 +1,14 @@
 // instantiate an angular app
-var app = angular.module('app', ['app.searchInputDirective', 'app.tooltipDirective',
-                                 'app.episodeInfoDirective', 'ngSanitize', 'ui.select']);
+var app = angular.module('app', [
+  'app.searchInputDirective', 
+  'app.tooltipDirective',
+  'app.episodeInfoDirective', 
+  'ngSanitize', 
+  'ui.select',
+  'app.services'
+  ]);
   // declare one controller for the app
-app.controller('appCtrl', function($scope, $http) {
+app.controller('appCtrl', function($scope, $http, TvShow) {
   // The below constants are used by $scope.refreshShows() to filter results
   // before showing end-user suggestions based on their search query.
   var MIN_VOTE_COUNT = 10; // Votes on TheMovieDB.org.
@@ -40,27 +46,25 @@ app.controller('appCtrl', function($scope, $http) {
     $scope.results = {};
     var season = 1;
     var seasonExists = true;
-    var getAllSeasons = function(seasonNumber) {
-      $http({
-        //need to handle url spaces
-        method: 'GET',
-        params: {
-          t: queryString, 
-          type: 'series', 
-          season: seasonNumber},
-        url: 'http://www.omdbapi.com/?',
-      }).then(function(res) {
-        console.log(res);
-        if (res.data.Response === "True") {
-          $scope.results = res.data;
-          getAllSeasons(seasonNumber + 1);
-        }
-        //run d3 function with data
-      }, function(err) {
 
-        console.log(err);
-      });
-    };
+    // retrieve the tv shows ratings
+    TvShow.getEpisodeRatings(queryString, season);
+    // retreive guidebox data for all of the tv show's episodes
+    TvShow.getImbdId(queryString)
+    .then(function(imbdId) {
+      return TvShow.getShowInfo(imbdId);
+    })
+    .then(function(showInfo) {
+      var guideboxId = showInfo.id;
+      return TvShow.getEpisodes(guideboxId);
+    })
+    .then(function(episodes) {
+      //parseEpisodeData(episodes.results);
+      console.log(episodes);
+    })
+    .catch(function(err) {
+      console.log(err);
+    });
 
     // ------ TheMovieDB.org API ------ //
     var getBackdrop = function() {
