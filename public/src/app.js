@@ -98,7 +98,6 @@ app.controller('appCtrl', function($scope, $http, TvShow) {
     };
 
     getBackdrop();
-    getAllSeasons(season);
   };
 
   // ------ FOR RESULTS FROM SEARCH ------ //
