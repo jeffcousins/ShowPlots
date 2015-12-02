@@ -1,8 +1,8 @@
 # Project Name - Should I Watch This?
 
-> An app that anyone can use instantly, to chart IMDB user ratings for their favorite shows, by episode.
+> An app that anyone can use instantly, to chart IMDB user ratings for their favorite shows by episode. Also displays links to watch or purchase those episodes.
 
-## Team - Samurai
+## Team - Knights
 
   - __Product Owner__: Eugene
   - __Scrum Master__: Luke
@@ -20,7 +20,7 @@
 
 ### Roadmap
 
-View the project roadmap [here](LINK_TO_PROJECT_ISSUES)
+View the project roadmap [here](https://github.com/HR10Knights/Should-I-Watch-This/issues)
 
 ## Contributing
 
