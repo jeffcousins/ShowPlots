@@ -1,5 +1,6 @@
 // instantiate an angular app
-var app = angular.module('app', ['app.searchInputDirective', 'app.tooltipDirective', 'app.episodeInfoDirective']);
+var app = angular.module('app', ['app.searchInputDirective', 'app.tooltipDirective',
+                                 'app.episodeInfoDirective', 'ngSanitize', 'ui.select']);
   // declare one controller for the app
 app.controller('appCtrl', function($scope, $http) {
   // * scope will have the query string as a variable
@@ -16,13 +17,13 @@ app.controller('appCtrl', function($scope, $http) {
   }
 
   // * search function
-  $scope.submit = function() {
+  $scope.submit = function(queryString) {
+    queryString = queryString || $scope.query;
     $scope.graphShown = true;
     // - make call to AJAX factory
     $scope.results = {};
     var season = 1;
     var seasonExists = true;
-    var queryString = $scope.query;
     $scope.query = '';
     var getAllSeasons = function(seasonNumber) {
     	$http({
@@ -73,5 +74,19 @@ app.controller('appCtrl', function($scope, $http) {
     getBackdrop();
     getAllSeasons(season);
   };
-});
 
+  $scope.show = {};
+  $scope.refreshShows = function(queryString) {
+    $http({
+      method: 'GET',
+      params: {
+        s: queryString,
+        type: 'series'
+      },
+      url: 'http://www.omdbapi.com/?',
+    }).then(function(res) {
+      console.log(res);
+      $scope.shows = res.data.Search;
+    });
+  };
+});

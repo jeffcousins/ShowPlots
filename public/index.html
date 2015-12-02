@@ -8,6 +8,12 @@
      <link rel="stylesheet" type="text/css" href="style.css">
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.min.js"></script>
     <script src="../node_modules/moviedb/moviedb.min.js"></script>
+
+    <!-- ui-select files -->
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.18/angular-sanitize.js"></script>
+    <script src="src/select.js"></script>
+    <link rel="stylesheet" href="src/select.css">
+
     <script src="src/input.js"></script>
     <script src="src/info.js"></script>
     <script src="src/tooltip.js"></script>
@@ -19,6 +25,10 @@
     <img src="http://image.tmdb.org/t/p/original/uv5BRIaJKfcPBPEBV8qfTjD6PuY.jpg" id="bg">
     <div class="container" ng-app="app" ng-controller="appCtrl">
       <episode-info ng-show="currentEpisode"></episode-info>
+
+      <!-- search bar -->
+      <search-input></search-input>
+
       <div class="row">
         <header id="mainHeader">
           <h1 class="text-center" ng-hide="graphShown">Should I Watch This?</h1>
@@ -28,9 +38,6 @@
 
           <graph ng-show="graphShown"></graph>
         </div>
-
-        <!-- search bar -->
-        <search-input></search-input>
       </div>
     </div>
     <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>

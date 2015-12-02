@@ -15,6 +15,12 @@ app.directive('graph', function($parse, $window) {
         data_url = newVal || {};
         drawGraph(scope.select);
       });
+
+      scope.$watch('show.selected', function(newVal) {
+        if (newVal && newVal.Title) {
+          scope.submit(newVal.Title);
+        }
+      });
     }
   };
 });
