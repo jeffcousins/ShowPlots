@@ -296,7 +296,6 @@ svg.selectAll('circle').data(infoset).on('mouseover', function(d) {
             tip.hide(d);
           })
           .on('click', function(d) {
-            console.log('clicked: ' + d);
             var info = {};
             info.title = d[0];
             info.rating = d[1];
