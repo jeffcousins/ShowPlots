@@ -156,3 +156,6 @@ body {
 #episodeInfo {
   color: #fff;
 }
+.ui-select-match {
+overflow: hidden;
+}
