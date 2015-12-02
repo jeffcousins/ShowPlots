@@ -8,7 +8,7 @@ app.controller('appCtrl', function($scope, $http) {
   $scope.results = [];
   // * d3 object / data set (when data is changed page is update)
   $scope.graphShown = false;
-  $scope.currentEpisode = [];
+  $scope.currentEpisode = null;
 
   $scope.select = function(info) {
     $scope.currentEpisode = info;

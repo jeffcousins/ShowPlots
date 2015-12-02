@@ -17,7 +17,6 @@ var drawGraph = function(clickCallback, trendLineStrokeColor) {
   trendLineStrokeColor = trendLineStrokeColor || "rgb(0, 0, 0)";
   //clear datasets if graphing new show changed
   if (data_url['Title'] !== showName) {
-    console.log('reset');
     epId = 1;
     episodedataset = [];
     ratingdataset = [];
@@ -269,14 +268,14 @@ var seasonScore = [];
   
 
 
-  d3.select('#graph svg')
-    .append("text")
-    .attr("x", w / 2)
-    .attr("y", 14)
-    .attr("text-anchor", "middle")
-    .attr('class', 'trendLine')
-    .style("fill", trendLineStrokeColor)
-    .text(showName);
+  // d3.select('#graph svg')
+  //   .append("text")
+  //   .attr("x", w / 2)
+  //   .attr("y", 14)
+  //   .attr("text-anchor", "middle")
+  //   .attr('class', 'trendLine')
+  //   .style("fill", trendLineStrokeColor)
+  //   .text(showName);
 
 
 svg.selectAll('circle').data(infoset).on('mouseover', function(d) {
