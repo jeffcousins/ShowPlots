@@ -1,5 +1,5 @@
 // instantiate an angular app
-var app = angular.module('app', ['app.searchInputDirective', 'app.tooltipDirective']);
+var app = angular.module('app', ['app.searchInputDirective', 'app.tooltipDirective', 'app.episodeInfoDirective']);
   // declare one controller for the app
 app.controller('appCtrl', function($scope, $http) {
   // * scope will have the query string as a variable
@@ -8,6 +8,12 @@ app.controller('appCtrl', function($scope, $http) {
   $scope.results = [];
   // * d3 object / data set (when data is changed page is update)
   $scope.graphShown = false;
+  $scope.currentEpisode = null;
+
+  $scope.select = function(info) {
+    $scope.currentEpisode = info;
+    $scope.$digest();
+  }
 
   // * search function
   $scope.submit = function() {
