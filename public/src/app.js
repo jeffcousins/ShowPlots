@@ -109,9 +109,28 @@ app.controller('appCtrl', function($scope, $http, TvShow) {
     }).then(function(res) {
       // console.log("refreshShows res: ", res);
 
-      $scope.shows = res.data.results.filter(function (show) {
+      var filteredShows = res.data.results.filter(function (show) {
         return show.vote_count >= MIN_VOTE_COUNT || show.popularity >= MIN_POPULARITY;
       });
+
+      // BEGIN HACK TO AVOID DUPLICATE SHOW NAMES
+      // (Eg, US and UK versions of "The Office"...see GitHub issue #32)
+      //
+      // If there are shows with duplicate names
+        // Include the first show, since it is more popular
+          // (due to how themoviedb sorts before returning search queries)
+      var usedNames = { };
+      filteredShows = filteredShows.filter(function (show) {
+        // A previous show has the same name, so do not include this show
+        if (usedNames[show.name]) {
+          return;
+        }
+        return usedNames[show.name] = true;
+      });
+      // END HACK
+
+      console.log("refreshShows filteredShows: ", filteredShows);
+      $scope.shows = filteredShows;
     });
   };
 });
