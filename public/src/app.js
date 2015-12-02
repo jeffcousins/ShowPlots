@@ -28,6 +28,7 @@ app.controller('appCtrl', function($scope, $http, TvShow) {
   }
   $scope.select = function(info) {
     $scope.currentEpisode = info;
+    console.log(info);
 
     // Dummy data until the api call is complete
     $scope.currentEpisode.description = "This is dummy text until we get the real API call. Here's some more text to fill up the space. A+! Really great text, would read again."
@@ -46,9 +47,13 @@ app.controller('appCtrl', function($scope, $http, TvShow) {
     $scope.results = {};
     var season = 1;
     var seasonExists = true;
+    
+    // change the background based on the input tv show
+    TvShow.getBackdrop(queryString);
 
     // retrieve the tv shows ratings
     TvShow.getEpisodeRatings(queryString, season);
+
     // retreive guidebox data for all of the tv show's episodes
     TvShow.getImbdId(queryString)
     .then(function(imbdId) {
@@ -66,47 +71,13 @@ app.controller('appCtrl', function($scope, $http, TvShow) {
       console.log(err);
     });
 
-    // ------ TheMovieDB.org API ------ //
-    var getBackdrop = function() {
-      var base = 'http://api.themoviedb.org/3/search/tv';
-      var apiKey = '5fa7832c6fecbcc0b59712892ca52fca';
-      var callback = 'JSON_CALLBACK'; // provided by angular.js
-      var url = base + '?api_key=' + apiKey + '&query=' + queryString + '&callback=' + callback;
-
-      $http.jsonp(url)
-        .then(function(res, status) {
-
-          // if search results > 0
-          if (res.data.total_results) {
-
-            // image path
-            var backdropPath = res.data.results[0].backdrop_path;
-
-            // change background
-            $('#blackout').fadeIn(100)
-              .queue(function(next) { 
-                $('#bg').attr('src', 'http://image.tmdb.org/t/p/original' + backdropPath);
-                next();
-              })
-              .fadeOut(600);
-          }
-        }, function(data, status) {
-          // error getting TheMovieDB data
-          console.log(data);
-          console.log(status);
-        });
-    };
-
-    getBackdrop();
   };
 
   // ------ FOR RESULTS FROM SEARCH ------ //
   $scope.show = {};
   $scope.refreshShows = function(queryString) {
-    $http({
-      method: 'GET',
-      url: 'http://api.themoviedb.org/3/search/tv?api_key=d56e51fb77b081a9cb5192eaaa7823ad&query=' + queryString
-    }).then(function(res) {
+    TvShow.getShowsFromSearchQuery(queryString)
+    .then(function(res) {
       // console.log("refreshShows res: ", res);
 
       var filteredShows = res.data.results.filter(function (show) {
