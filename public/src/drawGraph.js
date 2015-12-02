@@ -292,7 +292,7 @@ svg.selectAll('circle').data(infoset).on('mouseover', function(d) {
             .ease("elastic")
             .duration("500")
             .attr("r", 7)
-            .style("fill", "#2FFF4D");
+            .style("fill", "#FFFFFF");
             tip.hide(d);
           })
           .on('click', function(d) {

@@ -24,7 +24,7 @@
     <div id="blackout"></div>
     <img src="http://image.tmdb.org/t/p/original/uv5BRIaJKfcPBPEBV8qfTjD6PuY.jpg" id="bg">
     <div class="container" ng-app="app" ng-controller="appCtrl">
-      <episode-info ng-show="currentEpisode"></episode-info>
+      
 
       <!-- search bar -->
       <search-input></search-input>
@@ -39,6 +39,7 @@
           <graph ng-show="graphShown"></graph>
         </div>
       </div>
+      <episode-info ng-show="currentEpisode"></episode-info>
     </div>
     <script src="https://d3js.org/d3.v3.min.js" charset="utf-8"></script>
     <script src="http://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script>

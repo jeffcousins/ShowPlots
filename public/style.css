@@ -92,7 +92,7 @@ svg {
 }
 
 #graphContainer {
-  margin: 80px auto;
+  margin: 30px auto;
 }
 
 #mainHeader {
@@ -158,4 +158,39 @@ body {
 }
 .ui-select-match {
 overflow: hidden;
+}
+
+/* Episode Info */
+#episodeInfo {
+  color: black;
+}
+
+#episodeInfo .rating {
+  float: right;
+  font-size: 1.5em;
+  color: #aaa;
+  line-height: 2em;
+  padding-right: 2em;
+}
+
+#episodeInfo h2 {
+  font-size: 2em;
+  line-height: 0;
+}
+
+#episodeInfo h3 {
+  font-size: 1em;
+  color: #888;
+}
+
+#episodeInfo ul.watch {
+  list-style-type: none;
+  padding-left: 0;
+}
+#episodeInfo ul.watch li {
+  display: inline;
+}
+#episodeInfo ul.watch img {
+  width: 50px;
+  height: 50px;
 }
