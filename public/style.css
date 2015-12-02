@@ -167,15 +167,13 @@ overflow: hidden;
 
 #episodeInfo .rating {
   float: right;
-  font-size: 1.5em;
   color: #aaa;
-  line-height: 2em;
   padding-right: 2em;
 }
 
 #episodeInfo h2 {
   font-size: 2em;
-  line-height: 0;
+  max-height: 2em;
 }
 
 #episodeInfo h3 {

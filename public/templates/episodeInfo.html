@@ -1,8 +1,10 @@
 <div id="episodeInfo" class="well">
   <div class="row">
     <div class="col-md-6">
-      <p class="rating">{{ currentEpisode.rating }}</p>
-      <h2>{{ currentEpisode.title }}</h2>
+      <h2>
+        <p class="rating">{{ currentEpisode.rating }}</p>
+        {{ currentEpisode.title }}
+      </h2>
       <h3>Season: {{ currentEpisode.season }} Episode: {{ currentEpisode.episode }}</h3>
     </div>
     <div class="col-md-6">
