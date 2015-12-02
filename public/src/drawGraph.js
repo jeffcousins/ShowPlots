@@ -238,9 +238,9 @@ var seasonScore = [];
   /*point attributes*/
   points.attr('cy', 0)
     .transition()
-    .duration(500)
+    .duration(2500)
     .delay(function(d, i) {
-      return (i * 100) + 100;
+      return (2000 / episodedataset.length) * i;
     })
     .ease('elastic')
     .attr({
