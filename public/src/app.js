@@ -53,11 +53,17 @@ app.controller('appCtrl', function($scope, $http) {
       var apiKey = '5fa7832c6fecbcc0b59712892ca52fca';
       var callback = 'JSON_CALLBACK'; // provided by angular.js
       var url = base + '?api_key=' + apiKey + '&query=' + queryString + '&callback=' + callback;
+
       $http.jsonp(url)
-        .then(function(res, status) { 
+        .then(function(res, status) {
+
+          // if search results > 0
           if (res.data.total_results) {
-            console.log('total_results === ' + res.data.total_results);
+
+            // image path
             var backdropPath = res.data.results[0].backdrop_path;
+
+            // change background
             $('#blackout').fadeIn('fast')
               .queue(function(next) { 
                 $('#bg').attr('src', 'http://image.tmdb.org/t/p/original' + backdropPath);
@@ -65,7 +71,8 @@ app.controller('appCtrl', function($scope, $http) {
               })
               .fadeOut(1800);
           }
-        },function(data, status) {
+        }, function(data, status) {
+          // error getting TheMovieDB data
           console.log(data);
           console.log(status);
         });
@@ -89,4 +96,25 @@ app.controller('appCtrl', function($scope, $http) {
       $scope.shows = res.data.Search;
     });
   };
+});
+
+// dynamic background resizing
+$(window).load(function() { 
+  var theWindow = $(window);
+  var $bg = $('#bg');
+  var aspectRatio = $bg.width() / $bg.height();
+
+  function resizeBg() {
+      if ( (theWindow.width() / theWindow.height()) < aspectRatio ) {
+          $bg.removeClass().addClass('bgheight');
+          var myLeft = ( aspectRatio * theWindow.height() - theWindow.width() ) / -2;
+          $bg.css('left', myLeft);
+      } else {
+          $bg.removeClass().addClass('bgwidth');
+          $bg.css('left', '0');
+      }           
+  }
+  theWindow.resize(resizeBg).trigger("resize");
+
+  $('#bg').fadeIn(2000);
 });
