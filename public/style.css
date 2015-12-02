@@ -40,7 +40,7 @@ svg {
     stroke: #111;
     /*fill: rgba(47, 255, 77, 1);*/
     fill: rgba(255, 255, 255, 1);
-    stroke-width: 7;
+    stroke-width: 2;
 }
 .trendline {
   stroke-width: 3;
@@ -108,7 +108,7 @@ svg {
     position: fixed;
     top: 0; left: 0;
     z-index: -100;
-    -webkit-filter: blur(7px);
+    -webkit-filter: blur(3px) brightness(0.5);
 }
 
 .bgwidth {
@@ -127,7 +127,7 @@ svg {
   left: 0;
   width: 100%;
   height: 100%;
-  box-shadow: inset 0 0 200px 160px black;
+  box-shadow: inset 0 0 15em 3em black;
   background-size: 100%;
   z-index: -10;
 }
@@ -136,4 +136,17 @@ body {
   padding: 0;
   margin: 0;
   background: black;
+}
+
+#blackout {
+  display: none;
+  margin: 0;
+  padding: 0;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: black;
+  z-index: -5;
 }
