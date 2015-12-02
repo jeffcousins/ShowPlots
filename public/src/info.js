@@ -5,7 +5,8 @@ angular.module('app.episodeInfoDirective', [])
     templateUrl: 'templates/episodeInfo.html',
     link: function(scope, elem, attrs, ctrl) {
       scope.$watch('currentEpisode', function(newVal, oldVal) {
-        console.log('fuck');
+        console.log('newVal: ');
+        console.dir(newVal);
       }, true);
     }
   };
