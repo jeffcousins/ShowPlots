@@ -14,7 +14,7 @@ var seasonAvg = [];
 
 
 var drawGraph = function(clickCallback, trendLineStrokeColor) {
-  trendLineStrokeColor = trendLineStrokeColor || "rgb(0, 0, 0)";
+  trendLineStrokeColor = trendLineStrokeColor || "rgb(255, 255, 255)";
   //clear datasets if graphing new show changed
   if (data_url['Title'] !== showName) {
     epId = 1;
