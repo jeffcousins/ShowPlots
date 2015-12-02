@@ -17,8 +17,8 @@ app.directive('graph', function($parse, $window) {
       });
 
       scope.$watch('show.selected', function(newVal) {
-        if (newVal && newVal.Title) {
-          scope.submit(newVal.Title);
+        if (newVal && newVal.name) {
+          scope.submit(newVal.name);
         }
       });
     }

@@ -3,6 +3,11 @@ var app = angular.module('app', ['app.searchInputDirective', 'app.tooltipDirecti
                                  'app.episodeInfoDirective', 'ngSanitize', 'ui.select']);
   // declare one controller for the app
 app.controller('appCtrl', function($scope, $http) {
+  // The below constants are used by $scope.refreshShows() to filter results
+  // before showing end-user suggestions based on their search query.
+  var MIN_VOTE_COUNT = 10; // Votes on TheMovieDB.org.
+  var MIN_POPULARITY = 2; // Popularity on TheMovieDB.org Seems to go between 1 and 10.
+
   // * scope will have the query string as a variable
   $scope.query = '';
   // * show meta data as an object (reponse from AJAX call?)
@@ -29,29 +34,29 @@ app.controller('appCtrl', function($scope, $http) {
   // * search function
   $scope.submit = function(queryString) {
     queryString = queryString || $scope.query;
+    $scope.query = '';
     $scope.graphShown = true;
     // - make call to AJAX factory
     $scope.results = {};
     var season = 1;
     var seasonExists = true;
-    $scope.query = '';
     var getAllSeasons = function(seasonNumber) {
-    	$http({
-    		//need to handle url spaces
-    		method: 'GET',
+      $http({
+        //need to handle url spaces
+        method: 'GET',
         params: {
           t: queryString, 
           type: 'series', 
           season: seasonNumber},
-    		url: 'http://www.omdbapi.com/?',
-    	}).then(function(res) {
+        url: 'http://www.omdbapi.com/?',
+      }).then(function(res) {
         console.log(res);
         if (res.data.Response === "True") {
           $scope.results = res.data;
           getAllSeasons(seasonNumber + 1);
         }
-    		//run d3 function with data
-    	}, function(err) {
+        //run d3 function with data
+      }, function(err) {
 
         console.log(err);
       });
@@ -92,18 +97,18 @@ app.controller('appCtrl', function($scope, $http) {
     getAllSeasons(season);
   };
 
+  // ------ FOR RESULTS FROM SEARCH ------ //
   $scope.show = {};
   $scope.refreshShows = function(queryString) {
     $http({
       method: 'GET',
-      params: {
-        s: queryString,
-        type: 'series'
-      },
-      url: 'http://www.omdbapi.com/?',
+      url: 'http://api.themoviedb.org/3/search/tv?api_key=d56e51fb77b081a9cb5192eaaa7823ad&query=' + queryString
     }).then(function(res) {
-      console.log(res);
-      $scope.shows = res.data.Search;
+      // console.log("refreshShows res: ", res);
+
+      $scope.shows = res.data.results.filter(function (show) {
+        return show.vote_count >= MIN_VOTE_COUNT || show.popularity >= MIN_POPULARITY;
+      });
     });
   };
 });
