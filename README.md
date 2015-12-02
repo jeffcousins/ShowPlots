@@ -2,7 +2,7 @@
 
 > An app that anyone can use instantly, to chart IMDB user ratings for their favorite shows by episode. Also displays links to watch or purchase those episodes.
 
-## Team - Knights
+## Team
 
   - __Product Owner__: Eugene
   - __Scrum Master__: Luke
