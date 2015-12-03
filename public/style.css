@@ -105,6 +105,11 @@ svg {
   fill: blue;
 }
 
+#title {
+  transition: color .5s linear;
+  -webkit-transition: color .5s linear;
+  -moz-transition: color .5s linear;
+}
 
 #bg {
     position: fixed;
