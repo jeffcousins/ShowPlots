@@ -13,7 +13,7 @@ app.controller('appCtrl', function($scope, $http, TvShow) {
   // before showing end-user suggestions based on their search query.
   var MIN_VOTE_COUNT = 10; // Votes on TheMovieDB.org.
   var MIN_POPULARITY = 2; // Popularity on TheMovieDB.org Seems to go between 1 and 10.
-
+  
   // * scope will have the query string as a variable
   $scope.query = '';
   // * show meta data as an object (reponse from AJAX call?)
@@ -21,6 +21,9 @@ app.controller('appCtrl', function($scope, $http, TvShow) {
   // * d3 object / data set (when data is changed page is update)
   $scope.graphShown = false;
   $scope.currentEpisode = null;
+  // Image colors
+  $scope.swatches = [];
+
   $scope.icons = {
     "Amazon Prime": "assets/amazon.png",
     "Hulu": "assets/hulu.png",
@@ -68,7 +71,7 @@ app.controller('appCtrl', function($scope, $http, TvShow) {
     var seasonExists = true;
     
     // change the background based on the input tv show
-    TvShow.getBackdrop(queryString);
+    // TvShow.getBackdrop(queryString);
 
     // retrieve the tv shows ratings
     TvShow.getEpisodeRatings(queryString, season);

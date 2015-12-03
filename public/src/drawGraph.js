@@ -21,7 +21,6 @@ var drawGraph = function(clickCallback, trendLineStrokeColor) {
     episodedataset = [];
     ratingdataset = [];
     infoset = [];
-   
   }
   //update showName
   showName = data_url['Title'];
