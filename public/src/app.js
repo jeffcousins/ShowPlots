@@ -26,12 +26,14 @@ app.controller('appCtrl', function($scope, $http, TvShow) {
 
   $scope.icons = {
     "Amazon": "assets/amazon.png", // Amazon Instant Video
-    "Amazon Prime": "assets/amazon-prime.png",
+    "Amazon Prime": "assets/amazon-prime.jpg",
     "Google Play": "assets/google-play.png",
+    "HBO NOW": "assets/hbo-now.png",
     "Hulu": "assets/hulu.png",
-    "Hulu Plus": "assets/huluplus.png",
+    "Hulu Plus": "assets/huluplus.png", // I don't think we use this one...
     "iTunes": "assets/iTunes.png",
-    "YouTube": "assets/YouTube.png"
+    "Showtime": "assets/showtime.png",
+    "YouTube": "assets/youTube.png"
   }
   $scope.select = function(info) {
     /*
