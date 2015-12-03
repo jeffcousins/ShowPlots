@@ -102,11 +102,10 @@ app.controller('appCtrl', function($scope, $http, TvShow) {
     })
     .then(function(showInfo) {
       var guideboxId = showInfo.id;
-      return TvShow.getEpisodes(guideboxId);
+      return TvShow.getEpisodes(guideboxId, 0, 100);
     })
     .then(function(episodes) {
-      console.log(episodes);
-      $scope.episodes = parseEpisodeData(episodes.results);
+      $scope.episodes = parseEpisodeData(episodes);
     })
     .catch(function(err) {
       console.log(err);
@@ -139,8 +138,9 @@ app.controller('appCtrl', function($scope, $http, TvShow) {
         if (usedNames[show.name]) {
           return false;
         }
+        
         usedNames[show.name] = true;
-        return true;
+        return usedNames[show.name];
       });
       // END HACK
 
@@ -187,7 +187,7 @@ parsedEpisode = {
 }
 */
 var parseEpisodeData = function(episodes) {
-  // episodes is an array full of episode objects
+  // episodes argument is an array full of episode objects
   var parsedEpisodes = {};
 
   var freeOptions = {
