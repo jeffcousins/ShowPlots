@@ -27,6 +27,7 @@ app.controller('appCtrl', function($scope, $http, TvShow) {
   $scope.infoLoading = false;
 
   $scope.headerName = '';
+  $scope.hideMainHeader = false;
 
   $scope.icons = {
     "Amazon": "assets/amazon.png", // Amazon Instant Video
@@ -82,6 +83,7 @@ app.controller('appCtrl', function($scope, $http, TvShow) {
     $scope.currentEpisode = null;
     $scope.episodes = null;
     $scope.query = '';
+    $scope.hideMainHeader = true;
     $scope.graphShown = true;
     // - make call to AJAX factory
     $scope.results = {};

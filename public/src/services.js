@@ -126,7 +126,6 @@ angular.module('app.services', [])
                 }
                 
                 $('#title').css('color', swatchArray[0]);
-                $('#title').fadeIn();
                 next();
                 onLoadCallback(swatchArray);
               });
