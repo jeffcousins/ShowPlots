@@ -1,10 +1,3 @@
-//Used This Example as a resource below --> http://swizec.com/blog/quick-scatterplot-tutorial-for-d3-js/swizec/5337
-//Also this: --> http://codepen.io/Siddharth11/pen/YPMWeE
-
-//Need Width, Height, Padding, Based on Object
-//(Would like to use percentages for dynamic sizing based on browser)
-
-
 app.directive('graph', function($parse, $window, $rootScope, TvShow) {
   return {
     restrict: 'EA',
@@ -23,8 +16,10 @@ app.directive('graph', function($parse, $window, $rootScope, TvShow) {
 
       });
 
-      scope.$watch('show.selected', function(newVal) {
+      scope.$watch('show.selected', function(newVal, oldVal) {
         if (newVal && newVal.name) {
+          if (oldVal && oldVal.name && newVal.name === oldVal.name) return;
+
           scope.submit(newVal.name);
         }
       });
