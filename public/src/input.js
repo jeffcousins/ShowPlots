@@ -4,5 +4,4 @@ angular.module('app.searchInputDirective', [])
   return {
     templateUrl: 'templates/searchInput.html'
   };
-})
-
+});

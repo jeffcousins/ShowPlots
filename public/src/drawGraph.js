@@ -1,5 +1,5 @@
 // var w = 1100;
-var w = window.innerWidth * .8;
+var w = window.innerWidth * 0.8;
 var h = 400;  
 var padding = 25;
 //We don't know where this will be yet, needs to change.
@@ -16,14 +16,14 @@ var seasonAvg = [];
 var drawGraph = function(clickCallback, trendLineStrokeColor) {
   trendLineStrokeColor = trendLineStrokeColor || "rgb(255, 255, 255)";
   //clear datasets if graphing new show changed
-  if (data_url['Title'] !== showName) {
+  if (data_url.Title !== showName) {
     epId = 1;
     episodedataset = [];
     ratingdataset = [];
     infoset = [];
   }
   //update showName
-  showName = data_url['Title'];
+  showName = data_url.Title;
 
   // All purpose each function
   var each = function(input, callback) {
@@ -42,15 +42,15 @@ var drawGraph = function(clickCallback, trendLineStrokeColor) {
   //Function for filling up the info dataset
   //Function for filling up the episode dataset
   //iterate over episodes and add data to d3 datasets
-  var episodes = data_url["Episodes"] || {};
+  var episodes = data_url.Episodes || {};
   each(episodes, function(episode, key) {
-    if (episode["imdbRating"] !== "N/A") {
+    if (episode.imdbRating !== "N/A") {
       //get episode data
-      var epNum = parseInt(episode["Episode"]);
-      var rating = parseFloat(episode["imdbRating"]);
-      var showTitle = episode["Title"];
-      var season = parseInt(data_url["Season"]);
-      var id = episode["imdbID"];
+      var epNum = parseInt(episode.Episode);
+      var rating = parseFloat(episode.imdbRating);
+      var showTitle = episode.Title;
+      var season = parseInt(data_url.Season);
+      var id = episode.imdbID;
       //fill the d3 dataset variables
       episodedataset.push([epId, rating, id, season]);
       ratingdataset.push(rating);
@@ -94,8 +94,8 @@ var seasonScore = [];
       y2 += (item[0] * item[0]);
     });
 
-    var slope = (((len * x2) - (x1 * y1)) / ((len * y2) - (x1 * x1)))
-    var intercept = ((y1 - (slope * x1)) / len)
+    var slope = (((len * x2) - (x1 * y1)) / ((len * y2) - (x1 * x1)));
+    var intercept = ((y1 - (slope * x1)) / len);
     var xLabels = episodedataset.map(function(d) {
       return d[0];
     });
@@ -110,7 +110,7 @@ var seasonScore = [];
     var trendData = [
       [a1, b1, a2, b2]
     ];
-    var trendLine = svg.select()
+    var trendLine = svg.select();
     var trendline = svg.selectAll(".trendline")
       .data(trendData);
 
@@ -129,7 +129,7 @@ var seasonScore = [];
       .attr("y2", function(d) {
         return yScale(d[3]);
       })
-      .style("stroke", trendLineStrokeColor)   
+      .style("stroke", trendLineStrokeColor);
   };
 
 
@@ -209,10 +209,10 @@ var seasonScore = [];
   /*define line*/
   var lines = d3.svg.line()
     .x(function(d) {
-      return xScale(d[0])
+      return xScale(d[0]);
     })
     .y(function(d) {
-      return yScale(d[1])
+      return yScale(d[1]);
     })
     .interpolate('monotone');
 
@@ -284,7 +284,7 @@ var seasonScore = [];
         return  (colorCode[d[3] % objLength(colorCode)]); 
     }
 
-    for (color in colorCode){
+    for (var color in colorCode){
       if (d[3] == color){
         return colorCode[color];
       }
@@ -321,7 +321,7 @@ var seasonScore = [];
       
 
 
-  d3.timer(trendLine, 3500)
+  d3.timer(trendLine, 3500);
   
 
 
@@ -339,7 +339,8 @@ svg.selectAll('circle').data(infoset).on('mouseover', function(d) {
         d3.select(this).transition()
             .ease("elastic")
             .duration("500")
-            .attr("r", 12)
+            .attr("r", 12);
+
             tip.show(d);
             
           })
@@ -347,7 +348,8 @@ svg.selectAll('circle').data(infoset).on('mouseover', function(d) {
         d3.select(this).transition()
             .ease("elastic")
             .duration("500")
-            .attr("r", 7)
+            .attr("r", 7);
+
             tip.hide(d);
           })
           .on('click', function(d) {
@@ -358,7 +360,7 @@ svg.selectAll('circle').data(infoset).on('mouseover', function(d) {
             info.episode = d[3];
             info.imdbId = d[4];
             clickCallback(info);
-          })
+          });
 
 
 };

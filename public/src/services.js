@@ -100,7 +100,7 @@ angular.module('app.services', [])
               // Get colors from image
               $('#bg').unbind('load').load(function() {
                 var vibrant = new Vibrant(img);
-                var swatches = vibrant.swatches()
+                var swatches = vibrant.swatches();
                 var swatchArray = [];
 
                 for (var swatch in swatches) {
@@ -110,7 +110,7 @@ angular.module('app.services', [])
                 }
                 next();
                 onLoadCallback(swatchArray);
-              })
+              });
             })
             .fadeOut(600);
         }
@@ -133,7 +133,7 @@ angular.module('app.services', [])
     })
     .then(function(res) {
       return res;
-    })
+    });
   };
 
   return {

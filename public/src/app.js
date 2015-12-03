@@ -37,8 +37,8 @@ app.controller('appCtrl', function($scope, $http, TvShow) {
     "Hulu Plus": "assets/huluplus.png", // I don't think we use this one...
     "iTunes": "assets/iTunes.png",
     "Showtime": "assets/showtime.png",
-    "YouTube": "assets/YouTube.png"
-  }
+    "YouTube": "assets/youTube.png"
+  };
   $scope.select = function(info) {
     /*
     info = {
@@ -72,7 +72,7 @@ app.controller('appCtrl', function($scope, $http, TvShow) {
     }
     console.log($scope.currentEpisode);
     $scope.$digest(); // Update page because this was called from d3 not angular
-  }
+  };
 
   // * search function
   $scope.submit = function(queryString) {
@@ -137,9 +137,10 @@ app.controller('appCtrl', function($scope, $http, TvShow) {
       filteredShows = filteredShows.filter(function (show) {
         // A previous show has the same name, so do not include this show
         if (usedNames[show.name]) {
-          return;
+          return false;
         }
-        return usedNames[show.name] = true;
+        usedNames[show.name] = true;
+        return true;
       });
       // END HACK
 
@@ -206,7 +207,7 @@ var parseEpisodeData = function(episodes) {
     "Google Play": true,
     "iTunes": true,
     "YouTube": true
-  }
+  };
 
 
   // parse out relevent info for each episode
