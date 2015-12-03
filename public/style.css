@@ -172,11 +172,22 @@ overflow: hidden;
   color: black;
 }
 
+
 #episodeInfo .rating {
+  background-image: url('assets/ratingstar.png');
+  background-repeat: no-repeat;
+  background-position: top left;
+  width: 80px;
+  height: 60px;
   float: right;
-  color: #aaa;
-  padding-right: 2em;
+  font-size: .65em;
+  padding-right: 5em;
+  padding-top: 1.15em;
+  padding-left: 1.4em;
+  position: relative;
+  top: -1em;
 }
+
 
 #episodeInfo h2 {
   font-size: 2em;
