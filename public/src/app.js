@@ -48,8 +48,8 @@ app.controller('appCtrl', function($scope, $http, TvShow) {
     */
     
     $scope.currentEpisode = null;
-    if ( $scope.episodes[info.imdbId] ) { 
-      $scope.currentEpisode = $scope.episodes[info.imdbId];
+    if ( $scope.episodes && $scope.episodes[info.season][info.episode] ) { 
+      $scope.currentEpisode = $scope.episodes[info.season][info.episode];
       $scope.currentEpisode.rating = info.rating;
       $scope.currentEpisode.season = info.season;
       $scope.currentEpisode.episode = info.episode;
@@ -159,7 +159,11 @@ $(window).load(function() {
 // parse the episodes for relevant info
 // store them in object with their imdb id as the key
 /*
-parsedEpisodes = {'imbdId': parsedEpisode};
+parsedEpisodes = {'seasonNumber': {
+  'episodeNumber': parsedEpisode,
+  'episodeNumber': parsedEpisode
+  }
+};
 parsedEpisode = {
   'title': 'episode title goes here',
   'description': 'a brief description',
@@ -195,12 +199,17 @@ var parseEpisodeData = function(episodes) {
   // parse out relevent info for each episode
   for (var i = 0; i < episodes.length; i++) {
     var episode = episodes[i];
-    var imdb = episode.imdb_id;
-    parsedEpisodes[imdb] = {};
+    var seasonNum = episode.season_number;
+    var episodeNum = episode.episode_number;
+
+    if ( !parsedEpisodes[seasonNum] ) {
+      parsedEpisodes[seasonNum] = {};
+    }
+    parsedEpisodes[seasonNum][episodeNum] = {};
 
     // episode title and description
-    parsedEpisodes[imdb].title = episode.title;
-    parsedEpisodes[imdb].description = episode.overview;
+    parsedEpisodes[seasonNum][episodeNum].title = episode.title;
+    parsedEpisodes[seasonNum][episodeNum].description = episode.overview;
 
     var source;
 
@@ -213,7 +222,7 @@ var parseEpisodeData = function(episodes) {
         parsedFree[source.display_name] = source.link;
       }
     }
-    parsedEpisodes[imdb].freeProviders = parsedFree;
+    parsedEpisodes[seasonNum][episodeNum].freeProviders = parsedFree;
 
     // subscription streaming
     var subscriptionSources = episode.subscription_web_sources;  // this is an array full of objects
@@ -224,7 +233,7 @@ var parseEpisodeData = function(episodes) {
         parsedSubscription[source.display_name] = source.link;
       }
     }
-    parsedEpisodes[imdb].subscriptionProviders = parsedSubscription;
+    parsedEpisodes[seasonNum][episodeNum].subscriptionProviders = parsedSubscription;
 
     // digital purchase
     var purchaseSources = episode.purchase_web_sources;  // this is an array full of objects
@@ -235,7 +244,7 @@ var parseEpisodeData = function(episodes) {
         parsedPurchase[source.display_name] = source.link;
       }
     }
-    parsedEpisodes[imdb].purchaseProviders = parsedPurchase;
+    parsedEpisodes[seasonNum][episodeNum].purchaseProviders = parsedPurchase;
 
   }
   
