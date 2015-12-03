@@ -109,9 +109,10 @@ angular.module('app.services', [])
                       // console.log(swatch, swatches[swatch].getHex())
                     }
                   }
+                  next();
                   onLoadCallback(swatchArray);
               });
-              next();
+              
             })
             .fadeOut(600);
         }

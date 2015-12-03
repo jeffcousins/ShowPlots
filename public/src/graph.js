@@ -15,7 +15,6 @@ app.directive('graph', function($parse, $window, $rootScope, TvShow) {
       $rootScope.$watchCollection('allResults', function(newVal, oldVal) {
         if (!newVal || !newVal[0]) { return; }
         TvShow.getBackdrop(newVal[0].Title, function(swatches) {
-          console.log('swatches', swatches);
           for (var i = 0; i < newVal.length; i++) {
             data_url = newVal[i];
             drawGraph(scope.select, swatches[1]);
