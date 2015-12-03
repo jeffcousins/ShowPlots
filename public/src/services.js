@@ -86,10 +86,28 @@ angular.module('app.services', [])
           // image path
           var backdropPath = res.data.results[0].backdrop_path;
 
+          // Get colors from image
+          var img = document.getElementById('bg');
+          img.crossOrigin = "Anonymous";
+          img.addEventListener('load', function() {
+              var vibrant = new Vibrant(img);
+              var swatches = vibrant.swatches()
+              var swatchArray = [];
+
+              for (var swatch in swatches) {
+                if (swatches.hasOwnProperty(swatch) && swatches[swatch]) {
+                  swatchArray.push(swatches[swatch].getHex());
+                  console.log(swatch, swatches[swatch].getHex())
+                }
+              }
+              $rootScope.swatches = swatchArray;
+          });
+
           // change background
           $('#blackout').fadeIn(100)
             .queue(function(next) { 
               $('#bg').attr('src', 'http://image.tmdb.org/t/p/original' + backdropPath);
+
               next();
             })
             .fadeOut(600);
