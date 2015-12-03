@@ -249,6 +249,14 @@ var seasonScore = [];
     6: "#318420"
   };
 
+  var objLength = function(obj) {
+    var size = 0, key;
+    for (key in obj) {
+        if (obj.hasOwnProperty(key)) size++;
+    }
+    return size;
+};
+
   /*point attributes*/
   points.attr('cy', 0)
     .transition()
@@ -272,12 +280,16 @@ var seasonScore = [];
     })
     .style("fill", function(d) {
 
+    if (d[3] > objLength(colorCode)) { 
+        return  (colorCode[d[3] % objLength(colorCode)]); 
+    }
+
     for (color in colorCode){
       if (d[3] == color){
         return colorCode[color];
       }
     }
-    
+
   });
 
 
