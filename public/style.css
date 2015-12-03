@@ -183,11 +183,20 @@ overflow: hidden;
   font-size: .65em;
   padding-right: 5em;
   padding-top: 1.15em;
-  padding-left: 1.4em;
+  padding-left: 1.45em;
   position: relative;
   top: -1em;
 }
 
+#episodeInfo .rating a {
+  color: black;
+  text-decoration: none; 
+}
+
+#episodeInfo .rating a:hover {
+  color: #00c;
+  text-decoration: underline;
+}
 
 #episodeInfo h2 {
   font-size: 2em;
