@@ -52,7 +52,7 @@ var drawGraph = function(clickCallback, trendLineStrokeColor) {
       var season = parseInt(data_url["Season"]);
       var id = episode["imdbID"];
       //fill the d3 dataset variables
-      episodedataset.push([epId, rating, id]);
+      episodedataset.push([epId, rating, id, season]);
       ratingdataset.push(rating);
       infoset.push([showTitle, rating, season, epNum, id]);
       seasonAvg.push([season, rating]);
@@ -68,7 +68,7 @@ var seasonScore = [];
     .offset([-10, 0])
 
     .html(function(d) {
-      return "<strong>Title:</strong> <span style='color:#2FFF4D'>" + d[0] + "</span>" + "<br>" + "<strong>Rating:</strong> <span style='color:#2FFF4D'>" + d[1] + "</span>" + "<br>" + "<strong>Season:</strong> <span style='color:#2FFF4D'>" + d[2] + "</span>" + "<br>" + "<strong>Episode:</strong> <span style='color:#2FFF4D'>" + d[3] + "</span>";
+      return "<strong>Title:</strong> <span style='color:#2FFF4D'>" + d[0] + "</span>" + "<br>" + "<strong>Rating:</strong> <span style='color:#2FFF4D'>" + d[1] + "</span>" + "<br>" + "<strong>Season:</strong> <span style='color:#2FFF4D'>" + d[2] + "</span>" + "<br>" + "<strong>Episode:</strong> <span style='color:#2FFF4D'>" + d[3] + "</span>" + "<br>" + "<br>"+ "<strong>Click Me For More Info</strong> <span style='color:#2FFF4D'>";
     });
 
   var trendLine = function() {
@@ -132,6 +132,15 @@ var seasonScore = [];
       .style("stroke", trendLineStrokeColor)   
   };
 
+
+  var randomColor = function(){
+    var letters = '0123456789ABCDEF'.split('');
+    color = '#';
+    for (var i = 0; i < 6; i++ ) {
+        color += letters[Math.floor(Math.random() * 16)];
+    }
+    return color;
+  };
 
   //Define Graph Space, Initialize d3 (This sets how big the div is)
   d3.selectAll('svg')
@@ -211,7 +220,6 @@ var seasonScore = [];
   var path = svg.append('path')
     .attr({
       'd': lines(episodedataset),
-      'class': 'area',
       'class': 'lineChart'
       
     });
@@ -232,7 +240,22 @@ var seasonScore = [];
     .append("a")
     .append('circle');
 
+  var colorCode = {
+    1: "#E56410", 
+    2: "#24E05F", 
+    3: "#A572E1", 
+    4: "#AA5158", 
+    5: "#23304B", 
+    6: "#318420"
+  };
 
+  var objLength = function(obj) {
+    var size = 0, key;
+    for (key in obj) {
+        if (obj.hasOwnProperty(key)) size++;
+    }
+    return size;
+};
 
   /*point attributes*/
   points.attr('cy', 0)
@@ -255,14 +278,49 @@ var seasonScore = [];
         return i;
       }
     })
-    .style('opacity', 1);
+    .style("fill", function(d) {
 
-  var area = d3.svg.area()
-    .x(function(d) { return x(d[0]); })
-    .y0(function(d) { return y(d[1]-3); })
-    .y1(function(d) { return y(d[1]+3); });
+    if (d[3] > objLength(colorCode)) { 
+        return  (colorCode[d[3] % objLength(colorCode)]); 
+    }
 
-   
+    for (color in colorCode){
+      if (d[3] == color){
+        return colorCode[color];
+      }
+    }
+
+  });
+
+
+ 
+
+  // var area = d3.svg.area()
+  //   .x(function(d) { return x(d[0]); })
+  //   .y0(function(d) { return y(d[1]-3); })
+  //   .y1(function(d) { return y(d[1]+3); });
+
+
+
+  // points.style("fill", function(d) {
+  //   var season = 1;
+  //   var color = '#ff0000';
+
+  //   console.log('season: ' + d);
+
+  //   if (season !== d[3]){
+  //   color = randomColor(); 
+  //   season++;
+
+  //   }
+
+  //   return color;
+    
+    
+  // });
+      
+
+
   d3.timer(trendLine, 3500)
   
 
@@ -282,7 +340,6 @@ svg.selectAll('circle').data(infoset).on('mouseover', function(d) {
             .ease("elastic")
             .duration("500")
             .attr("r", 12)
-            .style("fill", "#FF0000");
             tip.show(d);
             
           })
@@ -291,7 +348,6 @@ svg.selectAll('circle').data(infoset).on('mouseover', function(d) {
             .ease("elastic")
             .duration("500")
             .attr("r", 7)
-            .style("fill", "#FFFFFF");
             tip.hide(d);
           })
           .on('click', function(d) {
