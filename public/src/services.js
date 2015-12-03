@@ -20,7 +20,8 @@ angular.module('app.services', [])
   // get IMBd ratings for the tv show
   
   $rootScope.results = {};
-  var getEpisodeRatings = function(tvShow, seasonNumber) {
+  var getEpisodeRatings = function(tvShow, seasonNumber, results) {
+    results = results || [];
     return $http({
       method: 'GET',
       params: {
@@ -35,7 +36,10 @@ angular.module('app.services', [])
       // recursively retreive all of the seasons
       if (res.data.Response === "True") {
         $rootScope.results = res.data;
-        getEpisodeRatings(tvShow, seasonNumber + 1);
+        results = results.concat(res.data);
+        getEpisodeRatings(tvShow, seasonNumber + 1, results);
+      } else {
+        $rootScope.allResults = results;
       }
     });
   };
@@ -102,7 +106,7 @@ angular.module('app.services', [])
                   for (var swatch in swatches) {
                     if (swatches.hasOwnProperty(swatch) && swatches[swatch]) {
                       swatchArray.push(swatches[swatch].getHex());
-                      console.log(swatch, swatches[swatch].getHex())
+                      // console.log(swatch, swatches[swatch].getHex())
                     }
                   }
                   onLoadCallback(swatchArray);
