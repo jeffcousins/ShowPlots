@@ -196,9 +196,16 @@ overflow: hidden;
 }
 
 
-/* Loading */
+/* Examples */
 
-img.loadingGif {
-  width: 200px;
-  
+div#examples {
+  color: #bbb;
+  margin: 0 auto;
+}
+div#examples h5 {
+  display: inline;
+}
+div#examples p {
+  display: inline;
+  margin: 1em;
 }

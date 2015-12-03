@@ -12,25 +12,28 @@
     </div>
   </div>
   <div class="row">
-    <div class="col-md-4" ng-show="currentEpisode.hasFreeProviders">
+    <div class="col-md-4">
       <h4>Watch Free</h4>
       <ul class="watch">
+        <li ng-hide="currentEpisode.hasFreeProviders">None found</li>
         <li ng-repeat="(provider, link) in currentEpisode.freeProviders">
           <a href="{{ link }}"><img class="watch" src="{{ icons[provider] }}"></a>
         </li>
       </ul>
     </div>
-    <div class="col-md-4" ng-show="currentEpisode.hasSubscriptionProviders">
+    <div class="col-md-4">
       <h4>Subscription Based</h4>
       <ul class="watch">
+        <li ng-hide="currentEpisode.hasSubscriptionProviders">None found</li>
         <li ng-repeat="(provider, link) in currentEpisode.subscriptionProviders">
           <a href="{{ link }}"><img class="watch" src="{{ icons[provider] }}"></a>
         </li>
       </ul>
     </div>
-    <div class="col-md-4" ng-show="currentEpisode.hasPurchaseProviders">
+    <div class="col-md-4">
       <h4>Digital Purchase</h4>
       <ul class="watch">
+        <li ng-hide="currentEpisode.hasPurchaseProviders">None found</li>
         <li ng-repeat="(provider, link) in currentEpisode.purchaseProviders">
           <a href="{{ link }}"><img class="watch" src="{{ icons[provider] }}"></a>
         </li>
