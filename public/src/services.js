@@ -108,6 +108,9 @@ angular.module('app.services', [])
                     swatchArray.push(swatches[swatch].getHex());
                   }
                 }
+                
+                $('#title').css('color', swatchArray[0]);
+                $('#title').fadeIn();
                 next();
                 onLoadCallback(swatchArray);
               })
