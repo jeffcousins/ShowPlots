@@ -152,6 +152,16 @@ $(window).load(function() {
 
 // parse the episodes for relevant info
 // store them in object with their imdb id as the key
+/*
+parsedEpisodes = {'imbdId': parsedEpisode};
+parsedEpisode = {
+  'title': 'episode title goes here',
+  'description': 'a brief description',
+  'freeLinks': {},
+  'subscriptionLinks': {},
+  'purchaseLinks': {}
+}
+*/
 var parseEpisodeData = function(episodes) {
   // episodes is an array full of episode objects
   var parsedEpisodes = {};
