@@ -139,8 +139,9 @@ app.controller('appCtrl', function($scope, $http, TvShow) {
         if (usedNames[show.name]) {
           return false;
         }
+        
         usedNames[show.name] = true;
-        return true;
+        return usedNames[show.name];
       });
       // END HACK
 
@@ -187,7 +188,7 @@ parsedEpisode = {
 }
 */
 var parseEpisodeData = function(episodes) {
-  // episodes is an array full of episode objects
+  // episodes argument is an array full of episode objects
   var parsedEpisodes = {};
 
   var freeOptions = {
