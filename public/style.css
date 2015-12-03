@@ -155,6 +155,7 @@ body {
 
 #episodeInfo {
   color: #fff;
+  opacity: 0.8;
 }
 .ui-select-match {
 overflow: hidden;
@@ -191,4 +192,12 @@ overflow: hidden;
 #episodeInfo ul.watch img {
   width: 50px;
   height: 50px;
+}
+
+
+/* Loading */
+
+img.loadingGif {
+  width: 200px;
+  
 }

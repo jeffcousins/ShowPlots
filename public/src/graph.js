@@ -6,7 +6,7 @@ app.directive('graph', function($parse, $window, $rootScope, TvShow) {
 
 
       $rootScope.$watchCollection('allResults', function(newVal, oldVal) {
-        if (!newVal || !newVal[0]) { return; }
+        if (!newVal || !newVal[0]) { scope.graphLoading = false; return; }
         TvShow.getBackdrop(newVal[0].Title, function(swatches) {
           for (var i = 0; i < newVal.length; i++) {
             data_url = newVal[i];

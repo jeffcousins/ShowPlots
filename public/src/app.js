@@ -23,6 +23,8 @@ app.controller('appCtrl', function($scope, $http, TvShow) {
   $scope.currentEpisode = null;
   // Image colors
   $scope.swatches = [];
+  $scope.graphLoading = false;
+  $scope.infoLoading = false;
 
 
   $scope.icons = {
@@ -56,6 +58,11 @@ app.controller('appCtrl', function($scope, $http, TvShow) {
       $scope.currentEpisode.imdbId = info.imdbId;
     } else {
       $scope.currentEpisode = info;
+    }
+    // Set hulu plus for subscription
+    if ($scope.currentEpisode.subscriptionProviders.Hulu) {
+      $scope.currentEpisode.subscriptionProviders["Hulu Plus"] = $scope.currentEpisode.subscriptionProviders.Hulu;
+      delete $scope.currentEpisode.subscriptionProviders.Hulu;
     }
     console.log($scope.currentEpisode);
 
