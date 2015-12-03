@@ -59,6 +59,11 @@ app.controller('appCtrl', function($scope, $http, TvShow) {
     } else {
       $scope.currentEpisode = info;
     }
+    // Set hulu plus for subscription
+    if ($scope.currentEpisode.subscriptionProviders.Hulu) {
+      $scope.currentEpisode.subscriptionProviders["Hulu Plus"] = $scope.currentEpisode.subscriptionProviders.Hulu;
+      delete $scope.currentEpisode.subscriptionProviders.Hulu;
+    }
     console.log($scope.currentEpisode);
 
     $scope.$digest(); // Update page because this was called from d3 not angular
