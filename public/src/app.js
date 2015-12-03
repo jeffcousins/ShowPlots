@@ -112,7 +112,7 @@ app.controller('appCtrl', function($scope, $http, TvShow) {
     })
     .then(function(showInfo) {
       var guideboxId = showInfo.id;
-      return TvShow.getEpisodes(guideboxId, 0, 100);
+      return TvShow.getEpisodes(guideboxId, 0);
     })
     .then(function(episodes) {
       $scope.episodes = parseEpisodeData(episodes);

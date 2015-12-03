@@ -62,7 +62,7 @@ angular.module('app.services', [])
   // api request to get all of the episode data for the show
   // curl -X GET https://api-public.guidebox.com/v1.43/US/rKPgQzhBRt89EHnyQg2reRrflrhTT9yf/show/12880/episodes/all/0/100/all/web/true?reverse_ordering=true
   var allEpisodes = [];
-  var getEpisodes = function(guideboxId, episodeStart, numOfEpisodes) {
+  var getEpisodes = function(guideboxId, episodeStart) {
     return $http({
       method: 'GET',
       url: 'https://api-public.guidebox.com/v1.43/US/' +
@@ -70,8 +70,8 @@ angular.module('app.services', [])
         '/show/' +
         guideboxId +
         '/episodes/all/' +
-        episodeStart + '/' + numOfEpisodes +
-        '/all/web/true?reverse_ordering=true'
+        episodeStart + 
+        '/100/all/web/true?reverse_ordering=true'
     })
     .then(function(res) {
       // api has an episode limit of 100 episodes per call
