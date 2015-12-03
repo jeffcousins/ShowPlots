@@ -35,4 +35,4 @@ node_modules/
 bower_components/
 
 # api keys
-config.js
+# config.js
