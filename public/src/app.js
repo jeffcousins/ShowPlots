@@ -40,6 +40,9 @@ app.controller('appCtrl', function($scope, $http, TvShow) {
 
   // * search function
   $scope.submit = function(queryString) {
+    // Clear episode info
+    $scope.currentEpisode = null;
+
     queryString = queryString || $scope.query;
     $scope.query = '';
     $scope.graphShown = true;
@@ -86,7 +89,6 @@ app.controller('appCtrl', function($scope, $http, TvShow) {
 
             // image path
             var backdropPath = res.data.results[0].backdrop_path;
-            var backdropUrl = 'http://image.tmdb.org/t/p/original' + backdropPath;
             
             // change background
             $('#blackout').fadeIn(100)
@@ -135,7 +137,7 @@ app.controller('appCtrl', function($scope, $http, TvShow) {
       });
       // END HACK
 
-      console.log("refreshShows filteredShows: ", filteredShows);
+      // console.log("refreshShows filteredShows: ", filteredShows);
       $scope.shows = filteredShows;
     });
   };
