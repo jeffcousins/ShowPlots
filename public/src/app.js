@@ -41,18 +41,17 @@ app.controller('appCtrl', function($scope, $http, TvShow) {
     */
     
     $scope.currentEpisode = null;
-    $scope.currentEpisode = $scope.episodes[info.imdbId];
-    $scope.currentEpisode.rating = info.rating;
-    $scope.currentEpisode.season = info.season;
-    $scope.currentEpisode.episode = info.episode;
-    $scope.currentEpisode.imdbId = info.imdbId;
+    if ( $scope.episodes[info.imdbId] ) { 
+      $scope.currentEpisode = $scope.episodes[info.imdbId];
+      $scope.currentEpisode.rating = info.rating;
+      $scope.currentEpisode.season = info.season;
+      $scope.currentEpisode.episode = info.episode;
+      $scope.currentEpisode.imdbId = info.imdbId;
+    } else {
+      $scope.currentEpisode = info;
+    }
     console.log($scope.currentEpisode);
 
-    // Dummy data until the api call is complete
-    // $scope.currentEpisode.description = "This is dummy text until we get the real API call. Here's some more text to fill up the space. A+! Really great text, would read again."
-    // $scope.currentEpisode.freeProviders = { "Amazon Prime": "http://www.amazon.com/", "Hulu": "http://www.hulu.com/" }
-    // $scope.currentEpisode.subscriptionProviders = { "Amazon Prime": "http://www.amazon.com/", "Hulu Plus": "http://www.hulu.com/" }
-    // $scope.currentEpisode.purchaseProviders = { "Amazon Prime": "http://www.amazon.com/", "Hulu": "http://www.hulu.com/" }
     $scope.$digest(); // Update page because this was called from d3 not angular
   }
 
