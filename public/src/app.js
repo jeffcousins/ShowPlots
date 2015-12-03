@@ -36,7 +36,7 @@ app.controller('appCtrl', function($scope, $http, TvShow) {
     "Hulu Plus": "assets/huluplus.png", // I don't think we use this one...
     "iTunes": "assets/iTunes.png",
     "Showtime": "assets/showtime.png",
-    "YouTube": "assets/youTube.png"
+    "YouTube": "assets/YouTube.png"
   }
   $scope.select = function(info) {
     /*
