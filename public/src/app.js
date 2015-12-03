@@ -39,6 +39,10 @@ app.controller('appCtrl', function($scope, $http, TvShow) {
     
     $scope.currentEpisode = null;
     $scope.currentEpisode = $scope.episodes[info.imdbId];
+    $scope.currentEpisode.rating = info.rating;
+    $scope.currentEpisode.season = info.season;
+    $scope.currentEpisode.episode = info.episode;
+    $scope.currentEpisode.imdbId = info.imdbId;
     console.log($scope.currentEpisode);
 
     // Dummy data until the api call is complete
