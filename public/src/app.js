@@ -40,9 +40,6 @@ app.controller('appCtrl', function($scope, $http, TvShow) {
 
   // * search function
   $scope.submit = function(queryString) {
-    // Clear episode info
-    $scope.currentEpisode = null;
-
     queryString = queryString || $scope.query;
     $scope.query = '';
     $scope.graphShown = true;
@@ -74,38 +71,6 @@ app.controller('appCtrl', function($scope, $http, TvShow) {
       console.log(err);
     });
 
-    // ------ TheMovieDB.org API ------ //
-    var getBackdrop = function() {
-      var base = 'http://api.themoviedb.org/3/search/tv';
-      var apiKey = '5fa7832c6fecbcc0b59712892ca52fca';
-      var callback = 'JSON_CALLBACK'; // provided by angular.js
-      var url = base + '?api_key=' + apiKey + '&query=' + queryString + '&callback=' + callback;
-
-      $http.jsonp(url)
-        .then(function(res, status) {
-
-          // if search results > 0
-          if (res.data.total_results) {
-
-            // image path
-            var backdropPath = res.data.results[0].backdrop_path;
-            
-            // change background
-            $('#blackout').fadeIn(100)
-              .queue(function(next) { 
-                $('#bg').attr('src', 'http://image.tmdb.org/t/p/original' + backdropPath);
-                next();
-              })
-              .fadeOut(600);
-          }
-        }, function(data, status) {
-          // error getting TheMovieDB data
-          console.log(data);
-          console.log(status);
-        });
-    };
-
-    getBackdrop();
   };
 
   // ------ FOR RESULTS FROM SEARCH ------ //
@@ -137,7 +102,7 @@ app.controller('appCtrl', function($scope, $http, TvShow) {
       });
       // END HACK
 
-      // console.log("refreshShows filteredShows: ", filteredShows);
+      console.log("refreshShows filteredShows: ", filteredShows);
       $scope.shows = filteredShows;
     });
   };
