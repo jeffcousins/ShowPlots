@@ -16,8 +16,10 @@ app.directive('graph', function($parse, $window, $rootScope, TvShow) {
 
       });
 
-      scope.$watch('show.selected', function(newVal) {
+      scope.$watch('show.selected', function(newVal, oldVal) {
         if (newVal && newVal.name) {
+          if (oldVal && oldVal.name && newVal.name === oldVal.name) return;
+
           scope.submit(newVal.name);
         }
       });
