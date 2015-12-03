@@ -1,5 +1,7 @@
 # Should I Watch This?
 
+[![Stories in Ready](https://badge.waffle.io/HR10Knights/Should-I-Watch-This.png?label=ready&title=Ready)](http://waffle.io/HR10Knights/Should-I-Watch-This)
+
 > An app that anyone can use instantly, to chart IMDB user ratings for their favorite shows by episode. Also displays links to watch or purchase those episodes.
 
 ## Table of Contents
