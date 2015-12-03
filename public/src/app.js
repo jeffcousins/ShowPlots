@@ -41,6 +41,10 @@ app.controller('appCtrl', function($scope, $http, TvShow) {
   // * search function
   $scope.submit = function(queryString) {
     queryString = queryString || $scope.query;
+
+    // remove episode info box
+    $scope.currentEpisode = null;
+    
     $scope.query = '';
     $scope.graphShown = true;
     // - make call to AJAX factory
