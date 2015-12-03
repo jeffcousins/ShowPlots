@@ -80,10 +80,12 @@ angular.module('app.services', [])
       if ( res.total_results > 100 ) {
         allEpisodes = allEpisodes.concat(res.results);
         return getEpisodes(guideboxId, allEpisodes.length, 100);     
-      } else {
+      } else if ( res.total_returned === 0) {
         var temp = allEpisodes;
         allEpisodes = [];
         return temp;
+      } else {
+        return res.results;
       }
 
     });
