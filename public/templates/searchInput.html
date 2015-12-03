@@ -1,12 +1,12 @@
 <div class="row">
-<div class="col-md-12 col-xs-12 col-lg-12 col-sm-12">
+<!-- <div class="col-md-12 col-xs-12 col-lg-12 col-sm-12"> -->
 <ui-select autofocus
            ng-model="show.selected"
            theme="bootstrap"
            ng-disabled="disabled"
            reset-search-input="false"
-           style="width: 300px;">
-  <ui-select-match placeholder="Type in a TV show...">{{$select.selected.name}}</ui-select-match>
+           style="width: 50%; min-width: 250px; margin: 0 auto;">
+  <ui-select-match style="opacity: .7" placeholder="Type in a TV show to get ratings.">{{$select.selected.name}}</ui-select-match>
   <ui-select-choices repeat="show in shows track by $index"
            refresh="refreshShows($select.search)"
            refresh-delay="0">
