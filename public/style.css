@@ -196,9 +196,19 @@ overflow: hidden;
 }
 
 
-/* Loading */
+/* Examples */
 
-img.loadingGif {
-  width: 200px;
-  
+div#examples {
+  color: #bbb;
+  margin: 2em auto;
+  text-align: center;
+  font-size: 1.2em
+}
+
+div#examples span {
+  cursor: pointer;
+  text-decoration: underline;
+}
+div#examples span:hover {
+  color: #fff;
 }

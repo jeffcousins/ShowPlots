@@ -39,6 +39,13 @@
       <!-- search bar -->
       <search-input></search-input>
 
+      <div id="examples" ng-hide="headerName">
+        Or try...
+          <span ng-click="submit('Breaking Bad')">Breaking Bad</span>
+          <span ng-click="submit('Dexter')">Dexter</span>
+          <span ng-click="submit('The Sopranos')">The Sopranos</span>
+      </div>
+
         <!-- d3 graph section -->
         <div id="graphContainer" class="col-md-12 col-xs-12 col-lg-12 col-sm-12">
           <graph ng-show="graphShown"></graph>
