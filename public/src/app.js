@@ -24,6 +24,7 @@ app.controller('appCtrl', function($scope, $http, TvShow) {
   // Image colors
   $scope.swatches = [];
 
+
   $scope.icons = {
     "Amazon": "assets/amazon.png", // Amazon Instant Video
     "Amazon Prime": "assets/amazon-prime.jpg",
@@ -152,7 +153,6 @@ $(window).load(function() {
       }           
   }
   theWindow.resize(resizeBg).trigger("resize");
-
   $('#bg').fadeIn(2000);
 });
 
@@ -190,6 +190,7 @@ var parseEpisodeData = function(episodes) {
     "iTunes": true,
     "YouTube": true
   }
+
 
   // parse out relevent info for each episode
   for (var i = 0; i < episodes.length; i++) {
