@@ -13,17 +13,14 @@ var seasonAvg = [];
 
 
 
-var drawGraph = function(trendLineStrokeColor) {
-  trendLineStrokeColor = trendLineStrokeColor || "rgb(0, 0, 0)";
-
+var drawGraph = function(clickCallback, trendLineStrokeColor) {
+  trendLineStrokeColor = trendLineStrokeColor || "rgb(255, 255, 255)";
   //clear datasets if graphing new show changed
   if (data_url['Title'] !== showName) {
-    console.log('reset');
     epId = 1;
     episodedataset = [];
     ratingdataset = [];
     infoset = [];
-   
   }
   //update showName
   showName = data_url['Title'];
@@ -57,7 +54,7 @@ var drawGraph = function(trendLineStrokeColor) {
       //fill the d3 dataset variables
       episodedataset.push([epId, rating, id]);
       ratingdataset.push(rating);
-      infoset.push([showTitle, rating, season, epNum]);
+      infoset.push([showTitle, rating, season, epNum, id]);
       seasonAvg.push([season, rating]);
       epId++;
     }
@@ -233,7 +230,6 @@ var seasonScore = [];
     .data(episodedataset)
     .enter()
     .append("a")
-    .attr("xlink:href", function(d){return 'http://www.imdb.com/title/'+ d[2]})
     .append('circle');
 
 
@@ -241,9 +237,9 @@ var seasonScore = [];
   /*point attributes*/
   points.attr('cy', 0)
     .transition()
-    .duration(500)
+    .duration(2500)
     .delay(function(d, i) {
-      return (i * 100) + 100;
+      return (2000 / episodedataset.length) * i;
     })
     .ease('elastic')
     .attr({
@@ -271,14 +267,14 @@ var seasonScore = [];
   
 
 
-  d3.select('#graph svg')
-    .append("text")
-    .attr("x", w / 2)
-    .attr("y", 14)
-    .attr("text-anchor", "middle")
-    .attr('class', 'trendLine')
-    .style("fill", trendLineStrokeColor)
-    .text(showName);
+  // d3.select('#graph svg')
+  //   .append("text")
+  //   .attr("x", w / 2)
+  //   .attr("y", 14)
+  //   .attr("text-anchor", "middle")
+  //   .attr('class', 'trendLine')
+  //   .style("fill", trendLineStrokeColor)
+  //   .text(showName);
 
 
 svg.selectAll('circle').data(infoset).on('mouseover', function(d) {
@@ -295,8 +291,17 @@ svg.selectAll('circle').data(infoset).on('mouseover', function(d) {
             .ease("elastic")
             .duration("500")
             .attr("r", 7)
-            .style("fill", "#2FFF4D");
+            .style("fill", "#FFFFFF");
             tip.hide(d);
+          })
+          .on('click', function(d) {
+            var info = {};
+            info.title = d[0];
+            info.rating = d[1];
+            info.season = d[2];
+            info.episode = d[3];
+            info.imdbId = d[4];
+            clickCallback(info);
           })
 
 

@@ -1,8 +1,17 @@
-<div id="search">
-  <form class="search form-inline form-horizontal" ng-submit="submit()">
-    <div class="row">
-      <input id="searchBar" class="form-control input col-xs-8" type="text" name="name" ng-model="query" placeholder="Should I watch this?">
-      <input id="submitButton" class="form-control input col-xs-4" type="submit" name="name" value="Go">
-    </div>
-  </form>
+<div class="row">
+<!-- <div class="col-md-12 col-xs-12 col-lg-12 col-sm-12"> -->
+<ui-select autofocus
+           ng-model="show.selected"
+           theme="bootstrap"
+           ng-disabled="disabled"
+           reset-search-input="false"
+           style="width: 50%; min-width: 250px; margin: 0 auto;">
+  <ui-select-match style="opacity: .7" placeholder="Type in a TV show to get ratings.">{{$select.selected.name}}</ui-select-match>
+  <ui-select-choices repeat="show in shows track by $index"
+           refresh="refreshShows($select.search)"
+           refresh-delay="0">
+    <div ng-bind-html="show.name | highlight: $select.search"></div>
+  </ui-select-choices>
+</ui-select>
+</div>
 </div>
