@@ -11,20 +11,17 @@ app.directive('graph', function($parse, $window, $rootScope, TvShow) {
     template: '<section class="graph"><div id="graph"></div></section>',
     link: function(scope, elem, attrs, ctrl) {
 
-      // $rootScope.$watchCollection('results', function(newVal, oldVal) {
-      //   data_url = newVal || {};
-      //   TvShow.getBackdrop(newVal.Title, function(swatches) {
-      //     // console.log('swatches: ', swatches);
-      //   });
-      //   drawGraph(scope.select);
-      // });
 
       $rootScope.$watchCollection('allResults', function(newVal, oldVal) {
-        console.log(newVal);
-        for (var i = 0; i < newVal.length; i++) {
-          data_url = newVal[i];
-          drawGraph(scope.select);
-        }
+        if (!newVal || !newVal[0]) { return; }
+        TvShow.getBackdrop(newVal[0].Title, function(swatches) {
+          console.log('swatches', swatches);
+          for (var i = 0; i < newVal.length; i++) {
+            data_url = newVal[i];
+            drawGraph(scope.select, swatches[1]);
+          }
+        });
+
       });
 
       scope.$watch('show.selected', function(newVal) {
