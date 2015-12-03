@@ -4,7 +4,7 @@
            ng-model="show.selected"
            theme="bootstrap"
            ng-disabled="disabled"
-           reset-search-input="false"
+           reset-search-input="true"
            style="width: 50%; min-width: 250px; margin: 0 auto;">
   <ui-select-match allow-clear="true" style="opacity: .75" placeholder="Type in a TV show to get ratings.">{{$select.selected.name}}</ui-select-match>
   <ui-select-choices repeat="show in shows track by $index"
