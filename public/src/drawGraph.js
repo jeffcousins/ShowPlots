@@ -68,7 +68,7 @@ var seasonScore = [];
     .offset([-10, 0])
 
     .html(function(d) {
-      return "<strong>Title:</strong> <span style='color:#2FFF4D'>" + d[0] + "</span>" + "<br>" + "<strong>Rating:</strong> <span style='color:#2FFF4D'>" + d[1] + "</span>" + "<br>" + "<strong>Season:</strong> <span style='color:#2FFF4D'>" + d[2] + "</span>" + "<br>" + "<strong>Episode:</strong> <span style='color:#2FFF4D'>" + d[3] + "</span>" + "<br>" + "<br>"+ "<strong>Click Me For More Info</strong> <span style='color:#2FFF4D'>";
+      return "<strong>Title:</strong> <span style='color:#2FFF4D'>" + d[0] + "</span>" + "<br>" + "<strong>Rating:</strong> <span style='color:#2FFF4D'>" + d[1] + "</span>" + "<br>" + "<strong>Season:</strong> <span style='color:#2FFF4D'>" + d[2] + "</span>" + "<br>" + "<strong>Episode:</strong> <span style='color:#2FFF4D'>" + d[3] + "</span>" + "<br>" + "<br>"+ "<strong>Click for more info</strong> <span style='color:#2FFF4D'>";
     });
 
   var trendLine = function() {
