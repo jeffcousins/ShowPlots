@@ -23,6 +23,7 @@ app.controller('appCtrl', function($scope, $http, TvShow) {
   $scope.currentEpisode = null;
   // Image colors
   $scope.swatches = [];
+  $scope.headerName = '';
 
   $scope.icons = {
     "Amazon": "assets/amazon.png", // Amazon Instant Video
@@ -84,6 +85,7 @@ app.controller('appCtrl', function($scope, $http, TvShow) {
     // retreive guidebox data for all of the tv show's episodes
     TvShow.getImbdId(queryString)
     .then(function(imbdId) {
+      $scope.headerName = queryString;
       return TvShow.getShowInfo(imbdId);
     })
     .then(function(showInfo) {
