@@ -192,3 +192,11 @@ overflow: hidden;
   width: 50px;
   height: 50px;
 }
+
+
+/* Loading */
+
+img.loadingGif {
+  width: 200px;
+  
+}

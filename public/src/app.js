@@ -23,6 +23,8 @@ app.controller('appCtrl', function($scope, $http, TvShow) {
   $scope.currentEpisode = null;
   // Image colors
   $scope.swatches = [];
+  $scope.graphLoading = false;
+  $scope.infoLoading = false;
 
 
   $scope.icons = {
