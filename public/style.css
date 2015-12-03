@@ -200,12 +200,15 @@ overflow: hidden;
 
 div#examples {
   color: #bbb;
-  margin: 0 auto;
+  margin: 2em auto;
+  text-align: center;
+  font-size: 1.2em
 }
-div#examples h5 {
-  display: inline;
+
+div#examples span {
+  cursor: pointer;
+  text-decoration: underline;
 }
-div#examples p {
-  display: inline;
-  margin: 1em;
+div#examples span:hover {
+  color: #fff;
 }
