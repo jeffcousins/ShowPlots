@@ -27,14 +27,25 @@ app.controller('appCtrl', function($scope, $http, TvShow) {
     "Hulu Plus": "assets/huluplus.png"
   }
   $scope.select = function(info) {
-    $scope.currentEpisode = info;
-    console.log(info);
+    /*
+    info = {
+      title: 'episode title',
+      rating: 9.1,
+      season: 3,
+      episode: 5,
+      imdbId: 'tt3067860'
+    }
+    */
+    
+    $scope.currentEpisode = null;
+    $scope.currentEpisode = $scope.episodes[info.imdbId];
+    console.log($scope.currentEpisode);
 
     // Dummy data until the api call is complete
-    $scope.currentEpisode.description = "This is dummy text until we get the real API call. Here's some more text to fill up the space. A+! Really great text, would read again."
-    $scope.currentEpisode.freeProviders = { "Amazon Prime": "http://www.amazon.com/", "Hulu": "http://www.hulu.com/" }
-    $scope.currentEpisode.subscriptionProviders = { "Amazon Prime": "http://www.amazon.com/", "Hulu Plus": "http://www.hulu.com/" }
-    $scope.currentEpisode.purchaseProviders = { "Amazon Prime": "http://www.amazon.com/", "Hulu": "http://www.hulu.com/" }
+    // $scope.currentEpisode.description = "This is dummy text until we get the real API call. Here's some more text to fill up the space. A+! Really great text, would read again."
+    // $scope.currentEpisode.freeProviders = { "Amazon Prime": "http://www.amazon.com/", "Hulu": "http://www.hulu.com/" }
+    // $scope.currentEpisode.subscriptionProviders = { "Amazon Prime": "http://www.amazon.com/", "Hulu Plus": "http://www.hulu.com/" }
+    // $scope.currentEpisode.purchaseProviders = { "Amazon Prime": "http://www.amazon.com/", "Hulu": "http://www.hulu.com/" }
     $scope.$digest(); // Update page because this was called from d3 not angular
   }
 
@@ -44,7 +55,7 @@ app.controller('appCtrl', function($scope, $http, TvShow) {
 
     // remove episode info box
     $scope.currentEpisode = null;
-    
+    $scope.episodes = null;
     $scope.query = '';
     $scope.graphShown = true;
     // - make call to AJAX factory
@@ -68,8 +79,8 @@ app.controller('appCtrl', function($scope, $http, TvShow) {
       return TvShow.getEpisodes(guideboxId);
     })
     .then(function(episodes) {
-      //parseEpisodeData(episodes.results);
       console.log(episodes);
+      $scope.episodes = parseEpisodeData(episodes.results);
     })
     .catch(function(err) {
       console.log(err);
@@ -106,7 +117,7 @@ app.controller('appCtrl', function($scope, $http, TvShow) {
       });
       // END HACK
 
-      console.log("refreshShows filteredShows: ", filteredShows);
+      // console.log("refreshShows filteredShows: ", filteredShows);
       $scope.shows = filteredShows;
     });
   };
@@ -132,3 +143,79 @@ $(window).load(function() {
 
   $('#bg').fadeIn(2000);
 });
+
+// parse the episodes for relevant info
+// store them in object with their imdb id as the key
+var parseEpisodeData = function(episodes) {
+  // episodes is an array full of episode objects
+  var parsedEpisodes = {};
+
+  var freeOptions = {
+    "Hulu": true,
+    "YouTube": true
+  };
+  
+  var subscriptionOptions = {
+    "Amazon Prime": true,
+    "HBO NOW": true,
+    "Hulu": true,
+    "Showtime": true
+  };
+
+  var digitalPurchaseOptions = {
+    "Amazon": true,
+    "Google Play": true,
+    "iTunes": true,
+    "YouTube": true
+  }
+
+  // parse out relevent info for each episode
+  for (var i = 0; i < episodes.length; i++) {
+    var episode = episodes[i];
+    var imdb = episode.imdb_id;
+    parsedEpisodes[imdb] = {};
+
+    // episode title and description
+    parsedEpisodes[imdb].title = episode.title;
+    parsedEpisodes[imdb].description = episode.overview;
+
+    var source;
+
+    // free streaming
+    var freeSources = episode.free_web_sources;  // this is an array full of objects
+    var parsedFree = {};
+    for (var j = 0; j < freeSources.length; j++) {
+      source = freeSources[j];
+      if ( freeOptions[source.display_name] ) {
+        parsedFree[source.display_name] = source.link;
+      }
+    }
+    parsedEpisodes[imdb].freeProviders = parsedFree;
+
+    // subscription streaming
+    var subscriptionSources = episode.subscription_web_sources;  // this is an array full of objects
+    var parsedSubscription = {};
+    for (var k = 0; k < subscriptionSources.length; k++) {
+      source = subscriptionSources[k];
+      if ( subscriptionOptions[source.display_name] ) {
+        parsedSubscription[source.display_name] = source.link;
+      }
+    }
+    parsedEpisodes[imdb].subscriptionProviders = parsedSubscription;
+
+    // digital purchase
+    var purchaseSources = episode.purchase_web_sources;  // this is an array full of objects
+    var parsedPurchase = {};
+    for (var x = 0; x < purchaseSources.length; x++) {
+      source = purchaseSources[x];
+      if ( digitalPurchaseOptions[source.display_name] ) {
+        parsedPurchase[source.display_name] = source.link;
+      }
+    }
+    parsedEpisodes[imdb].purchaseProviders = parsedPurchase;
+
+  }
+  
+  console.log(parsedEpisodes);
+  return parsedEpisodes;
+};
