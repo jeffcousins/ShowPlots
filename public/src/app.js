@@ -71,7 +71,7 @@ app.controller('appCtrl', function($scope, $http, TvShow) {
     var seasonExists = true;
     
     // change the background based on the input tv show
-    TvShow.getBackdrop(queryString);
+    // TvShow.getBackdrop(queryString);
 
     // retrieve the tv shows ratings
     TvShow.getEpisodeRatings(queryString, season);

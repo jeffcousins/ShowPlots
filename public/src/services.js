@@ -18,6 +18,7 @@ angular.module('app.services', [])
   };
 
   // get IMBd ratings for the tv show
+  
   $rootScope.results = {};
   var getEpisodeRatings = function(tvShow, seasonNumber) {
     return $http({
@@ -71,7 +72,7 @@ angular.module('app.services', [])
   };
 
     // ------ TheMovieDB.org API ------ //
-  var getBackdrop = function(queryString) {
+  var getBackdrop = function(queryString, onLoadCallback) {
     var base = 'http://api.themoviedb.org/3/search/tv';
     var apiKey = '5fa7832c6fecbcc0b59712892ca52fca';
     var callback = 'JSON_CALLBACK'; // provided by angular.js
@@ -85,29 +86,27 @@ angular.module('app.services', [])
 
           // image path
           var backdropPath = res.data.results[0].backdrop_path;
-
-          // Get colors from image
-          var img = document.getElementById('bg');
-          img.crossOrigin = "Anonymous";
-          img.addEventListener('load', function() {
-              var vibrant = new Vibrant(img);
-              var swatches = vibrant.swatches()
-              var swatchArray = [];
-
-              for (var swatch in swatches) {
-                if (swatches.hasOwnProperty(swatch) && swatches[swatch]) {
-                  swatchArray.push(swatches[swatch].getHex());
-                  console.log(swatch, swatches[swatch].getHex())
-                }
-              }
-              $rootScope.swatches = swatchArray;
-          });
-
+          $rootScope.backdropUrl = 'http://image.tmdb.org/t/p/original' + backdropPath;
           // change background
           $('#blackout').fadeIn(100)
-            .queue(function(next) { 
+            .queue(function(next) {
+              var img = document.getElementById('bg');
+              img.crossOrigin = 'Anonymous';
               $('#bg').attr('src', 'http://image.tmdb.org/t/p/original' + backdropPath);
+              // Get colors from image
+              img.addEventListener('load', function() {
+                  var vibrant = new Vibrant(img);
+                  var swatches = vibrant.swatches()
+                  var swatchArray = [];
 
+                  for (var swatch in swatches) {
+                    if (swatches.hasOwnProperty(swatch) && swatches[swatch]) {
+                      swatchArray.push(swatches[swatch].getHex());
+                      console.log(swatch, swatches[swatch].getHex())
+                    }
+                  }
+                  onLoadCallback(swatchArray);
+              });
               next();
             })
             .fadeOut(600);
@@ -118,6 +117,8 @@ angular.module('app.services', [])
         console.log(status);
       });
   };
+
+
 
   var getShowsFromSearchQuery = function (queryString) {
     return $http({

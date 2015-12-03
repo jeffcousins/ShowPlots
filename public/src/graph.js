@@ -5,7 +5,7 @@
 //(Would like to use percentages for dynamic sizing based on browser)
 
 
-app.directive('graph', function($parse, $window, $rootScope) {
+app.directive('graph', function($parse, $window, $rootScope, TvShow) {
   return {
     restrict: 'EA',
     template: '<section class="graph"><div id="graph"></div></section>',
@@ -13,7 +13,10 @@ app.directive('graph', function($parse, $window, $rootScope) {
 
       $rootScope.$watchCollection('results', function(newVal, oldVal) {
         data_url = newVal || {};
-        drawGraph(scope.select);
+        TvShow.getBackdrop(newVal.Title, function(swatches) {
+          console.log('swatches: ', swatches);
+          drawGraph(scope.select, swatches[0]);
+        });
       });
 
       scope.$watch('show.selected', function(newVal) {
