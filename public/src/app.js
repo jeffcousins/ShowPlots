@@ -76,6 +76,8 @@ app.controller('appCtrl', function($scope, $http, TvShow) {
   // ------ FOR RESULTS FROM SEARCH ------ //
   $scope.show = {};
   $scope.refreshShows = function(queryString) {
+    if (queryString.length < 2) return;
+
     TvShow.getShowsFromSearchQuery(queryString)
     .then(function(res) {
       // console.log("refreshShows res: ", res);
