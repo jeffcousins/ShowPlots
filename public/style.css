@@ -1,0 +1,254 @@
+/*body {
+  background-color: #111;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}*/
+/*div {
+  marin: 20px auto 0;
+  colo: #aaa;
+  font-weight: 100;
+}*/
+svg {
+  postion: absolute;
+  top: 0%;
+  left: 0%;
+  tran  transform: translate(-50%,-50%);
+}
+
+.xaxis path,
+.xaxis line,
+.yaxis path,
+.yaxis line {
+    stroke: #fff;
+    fill: none;
+    shape-rendering: crispEdges;
+}
+
+.xaxis text,
+.yaxis text {
+    font-family: sans-serif;
+    font-size: 11px;
+    fill: #fff;
+}
+
+.datapoint {
+    cursor: pointer;
+    stroke: #111;
+    /*fill: rgba(47, 255, 77, 1);*/
+    fill: rgba(255, 255, 255, 1);
+    stroke-width: 2;
+}
+.trendline {
+  stroke-width: 3;
+  stroke: #fff;
+}
+.lineChart {
+    fill: none;
+    stroke-width: 3;
+    stroke: rgba(255,255,255, 1);
+}
+
+.d3-tip {
+  line-height: 1;
+  padding: 12px;
+  background: rgba(0, 0, 0, 0.8);
+  color: #fff;
+  border-radius: 2px;
+}
+
+/* Creates a small triangle extender for the tooltip */
+.d3-tip:after {
+  box-sizing: border-box;
+  display: inline;
+  font-size: 10px;
+  width: 100%;
+  line-height: 1;
+  color: rgba(0, 0, 0, 0.8);
+  content: "\25BC";
+  position: absolute;
+  text-align: center;
+}
+
+/* Style northward tooltips differently */
+.d3-tip.n:after {
+  margin: -1px 0 0 0;
+  top: 100%;
+  left: 0;
+}
+
+#searchBar {
+  width: 65%;
+  margin-left: 5%;
+
+}
+
+#submitButton {
+  width: 17%;
+  margin-left: 3%;
+}
+
+#graphContainer {
+  margin: 30px auto;
+}
+
+#mainHeader {
+  color: white;
+  margin-bottom: 50px;
+  font-family: 'Raleway', sans-serif;
+}
+
+.area {
+  fill: blue;
+}
+
+#title {
+  transition: color .5s linear;
+  -webkit-transition: color .5s linear;
+  -moz-transition: color .5s linear;
+}
+
+#bg {
+    position: fixed;
+    top: 0; left: 0;
+    z-index: -100;
+    -webkit-filter: blur(3px) brightness(0.5);
+}
+
+.bgwidth {
+  width: 100%;
+}
+
+.bgheight {
+  height: 100%;
+}
+
+#vignette {
+  margin: 0;
+  padding: 0;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  box-shadow: inset 0 0 15em 3em black;
+  background-size: 100%;
+  z-index: -10;
+}
+
+body {
+  padding: 0;
+  margin: 0;
+  background: black;
+}
+
+#blackout {
+  margin: 0;
+  padding: 0;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: black;
+  z-index: -5;
+  color: #fff;
+}
+
+#episodeInfo {
+  color: #fff;
+  opacity: 0.75;
+}
+.ui-select-match {
+overflow: hidden;
+}
+
+/* Episode Info */
+#episodeInfo {
+  color: black;
+}
+
+
+#episodeInfo .rating {
+  background-image: url('assets/ratingstar.png');
+  background-repeat: no-repeat;
+  background-position: top left;
+  width: 80px;
+  height: 60px;
+  float: right;
+  font-size: .65em;
+  padding-right: 5em;
+  padding-top: 1.15em;
+  padding-left: 1.45em;
+  position: relative;
+  top: -1em;
+}
+
+#episodeInfo .rating a {
+  color: black;
+  text-decoration: none; 
+}
+
+#episodeInfo .rating a:hover {
+  color: #00c;
+  text-decoration: underline;
+}
+
+#episodeInfo h2 {
+  font-size: 2em;
+  max-height: 2em;
+}
+
+#episodeInfo h3 {
+  font-size: 1em;
+  color: #888;
+}
+
+#episodeInfo ul.watch {
+  list-style-type: none;
+  padding-left: 0;
+}
+#episodeInfo ul.watch li {
+  display: inline;
+}
+#episodeInfo ul.watch img {
+  width: 50px;
+  height: 50px;
+}
+
+
+/* Examples */
+
+div#examples {
+  color: #bbb;
+  margin: 2em auto;
+  text-align: center;
+  font-size: 1.2em
+}
+
+div#examples span {
+  cursor: pointer;
+  text-decoration: underline;
+}
+div#examples span:hover {
+  color: #fff;
+}
+
+/* Loading */
+#loadingEpisode {
+  text-align: center;
+}
+img.loadingGif {
+  width: 200px;
+}
+
+/* Error Message */
+
+#searchError {
+  color: red;
+  text-align: center;
+  padding-top: 1em;
+}
