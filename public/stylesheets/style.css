@@ -249,6 +249,7 @@ img.loadingGif {
 
 #searchError {
   color: red;
+  visibility: hidden;
   text-align: center;
   padding-top: 1em;
 }

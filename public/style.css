@@ -251,4 +251,5 @@ img.loadingGif {
   color: red;
   text-align: center;
   padding-top: 1em;
+  visibility: hidden;
 }
