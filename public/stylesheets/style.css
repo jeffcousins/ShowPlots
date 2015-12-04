@@ -244,3 +244,11 @@ div#examples span:hover {
 img.loadingGif {
   width: 200px;
 }
+
+/* Error Message */
+
+#searchError {
+  color: red;
+  text-align: center;
+  padding-top: 1em;
+}

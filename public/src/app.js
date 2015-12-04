@@ -84,6 +84,7 @@ app.controller('appCtrl', function($scope, $http, TvShow) {
 
   // * search function
   $scope.submit = function(queryString) {
+    
     queryString = queryString || $scope.query;
 
     // remove episode info box
@@ -169,7 +170,8 @@ app.controller('appCtrl', function($scope, $http, TvShow) {
 });
 
 // dynamic background resizing
-$(window).load(function() { 
+$(window).load(function() {
+  $('#searchError').hide();
   $('#blackout').fadeOut(200);
   var theWindow = $(window);
   var $bg = $('#bg');
@@ -187,6 +189,19 @@ $(window).load(function() {
   }
   theWindow.resize(resizeBg).trigger("resize");
   $('#bg').fadeIn(2000);
+  $('#searchInput input').keypress(function(e) {
+    $('#searchError').hide();
+    if (e.which !== 13) {
+      $('#searchError').hide();
+      return;
+    }
+    $('#searchError').hide();
+    var numberOfResults = $('.ui-select-choices-row').length;
+    if (numberOfResults < 1) {
+      console.log('no show found');
+      $('#searchError').show();
+    }
+  });
 });
 
 // parse the episodes for relevant info
