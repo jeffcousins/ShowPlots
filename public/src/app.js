@@ -157,6 +157,7 @@ app.controller('appCtrl', function($scope, $http, TvShow) {
 
 // dynamic background resizing
 $(window).load(function() { 
+  $('#blackout').fadeOut(200);
   var theWindow = $(window);
   var $bg = $('#bg');
   var aspectRatio = $bg.width() / $bg.height();
