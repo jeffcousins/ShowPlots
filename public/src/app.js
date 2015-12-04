@@ -112,7 +112,8 @@ app.controller('appCtrl', function($scope, $http, TvShow) {
     })
     .then(function(showInfo) {
       var guideboxId = showInfo.id;
-      return TvShow.getEpisodes(guideboxId, 0);
+      var startEpisode = 0;
+      return TvShow.getEpisodes(guideboxId, startEpisode);
     })
     .then(function(episodes) {
       $scope.episodes = parseEpisodeData(episodes);
@@ -192,11 +193,11 @@ $(window).load(function() {
 // store them in object with their imdb id as the key
 /*
 parsedEpisodes = {'seasonNumber': {
-  'episodeNumber': parsedEpisode,
-  'episodeNumber': parsedEpisode
+  'episodeNumber': parsedEpisodeObj,
+  'episodeNumber': parsedEpisodeObj
   }
 };
-parsedEpisode = {
+parsedEpisodeObj = {
   'title': 'episode title goes here',
   'description': 'a brief description',
   'freeLinks': {},
@@ -204,7 +205,7 @@ parsedEpisode = {
   'purchaseLinks': {}
 }
 */
-var parseEpisodeData = function(episodes, finishedCalback) {
+var parseEpisodeData = function(episodes) {
   // episodes argument is an array full of episode objects
   var parsedEpisodes = {};
 
@@ -227,60 +228,55 @@ var parseEpisodeData = function(episodes, finishedCalback) {
     "YouTube": true
   };
 
-
   // parse out relevent info for each episode
-  for (var i = 0; i < episodes.length; i++) {
-    var episode = episodes[i];
+  episodes.forEach(function(episode) {
     var seasonNum = episode.season_number;
     var episodeNum = episode.episode_number;
+    var source;
 
+    // if the season does not exist yet in parsedEpisodes, create it
     if ( !parsedEpisodes[seasonNum] ) {
       parsedEpisodes[seasonNum] = {};
     }
+
+    // create an empty object for the parsed episode data
     parsedEpisodes[seasonNum][episodeNum] = {};
 
     // episode title and description
     parsedEpisodes[seasonNum][episodeNum].title = episode.title;
     parsedEpisodes[seasonNum][episodeNum].description = episode.overview;
 
-    var source;
-
-    // free streaming
+    // free streaming (Hulu, Youtube)
     var freeSources = episode.free_web_sources;  // this is an array full of objects
-    var parsedFree = {};
-    for (var j = 0; j < freeSources.length; j++) {
-      source = freeSources[j];
-      if ( freeOptions[source.display_name] ) {
-        parsedFree[source.display_name] = source.link;
+    var freeProviders = {};
+    freeSources.forEach(function(freeSource) {
+      if ( freeOptions[freeSource.display_name] ) {
+        freeProviders[freeSource.display_name] = freeSource.link;
       }
-    }
-    parsedEpisodes[seasonNum][episodeNum].freeProviders = parsedFree;
+    });
+    parsedEpisodes[seasonNum][episodeNum].freeProviders = freeProviders;
 
-    // subscription streaming
+    // subscription streaming (AmazonPrime, HBO NOW, Hulu, Showtime)
     var subscriptionSources = episode.subscription_web_sources;  // this is an array full of objects
-    var parsedSubscription = {};
-    for (var k = 0; k < subscriptionSources.length; k++) {
-      source = subscriptionSources[k];
-      if ( subscriptionOptions[source.display_name] ) {
-        parsedSubscription[source.display_name] = source.link;
+    var subscriptionProviders = {};
+    subscriptionSources.forEach(function(subscriptionSource) {
+      if ( subscriptionOptions[subscriptionSource.display_name] ) {
+        subscriptionProviders[subscriptionSource.display_name] = subscriptionSource.link;
       }
-    }
-    parsedEpisodes[seasonNum][episodeNum].subscriptionProviders = parsedSubscription;
+    });
+    parsedEpisodes[seasonNum][episodeNum].subscriptionProviders = subscriptionProviders;
 
-    // digital purchase
+    
+    // digital purchase (Amazon, GooglePlay, iTunes, YouTube)
     var purchaseSources = episode.purchase_web_sources;  // this is an array full of objects
-    var parsedPurchase = {};
-    for (var x = 0; x < purchaseSources.length; x++) {
-      source = purchaseSources[x];
-      if ( digitalPurchaseOptions[source.display_name] ) {
-        parsedPurchase[source.display_name] = source.link;
+    var purchaseProviders = {};
+    purchaseSources.forEach(function(purchaseSource) {
+      if ( digitalPurchaseOptions[purchaseSource.display_name] ) {
+        purchaseProviders[purchaseSource.display_name] = purchaseSource.link;
       }
-    }
-    parsedEpisodes[seasonNum][episodeNum].purchaseProviders = parsedPurchase;
-
-  }
+    });
+    parsedEpisodes[seasonNum][episodeNum].purchaseProviders = purchaseProviders;
+  });
   
-  console.log(parsedEpisodes);
-  
-  return parsedEpisodes;
-};
+  return parsedEpisodes;  
+}
