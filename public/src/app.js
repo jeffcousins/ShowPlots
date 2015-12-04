@@ -164,12 +164,18 @@ app.controller('appCtrl', function($scope, $http, TvShow) {
       // END HACK
 
       if (filteredShows.length > 0) {
-        $('#searchError').css('visibility', 'hidden');
+        // $('#searchError').css('visibility', 'hidden');
+        $('#searchError').fadeOut(500, function() {
+          $('#searchError').css('visibility', 'hidden');
+        })
         // $('#searchError').fadeTo('slow', function () {
         //   $(this).css('visibility', 'hidden');
         // });
       } else {
-        $('#searchError').css('visibility', 'visible');
+        // $('#searchError').css('visibility', 'visible');
+        $('#searchError').fadeIn(500, function() {
+          $('#searchError').css('visibility', 'visible');
+        })
         // $('#searchError').fadeIn('slow', function () {
         //   $(this).css('visibility', 'visible');
         // });
