@@ -200,6 +200,9 @@ $(window).load(function() {
     if (numberOfResults < 1) {
       console.log('no show found');
       $('#searchError').show();
+      setTimeout(function() {
+        $('#searchError').fadeOut();
+      }, 3000);
     }
   });
 });
