@@ -173,7 +173,7 @@ overflow: hidden;
 
 
 #episodeInfo .rating {
-  background-image: url('assets/ratingstar.png');
+  background-image: url('../assets/ratingstar.png');
   background-repeat: no-repeat;
   background-position: top left;
   width: 80px;
