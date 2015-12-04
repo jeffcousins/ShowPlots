@@ -51,6 +51,9 @@
           <graph ng-show="graphShown"></graph>
         </div>
       </div>
+      <div id="loadingEpisode" ng-show="episodeWaiting">
+        <img src="assets/loading.gif" class="loadingGif">
+      </div>
       <episode-info ng-show="currentEpisode"></episode-info>
     </div>
     <script src="https://d3js.org/d3.v3.min.js" charset="utf-8"></script>

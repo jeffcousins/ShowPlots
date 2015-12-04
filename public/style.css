@@ -237,3 +237,11 @@ div#examples span {
 div#examples span:hover {
   color: #fff;
 }
+
+/* Loading */
+#loadingEpisode {
+  text-align: center;
+}
+img.loadingGif {
+  width: 200px;
+}

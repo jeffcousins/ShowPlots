@@ -40,17 +40,17 @@ app.controller('appCtrl', function($scope, $http, TvShow) {
     "Showtime": "assets/showtime.png",
     "YouTube": "assets/youTube.png"
   };
+
+  $scope.episodeWaiting = false;
+  $scope.nextEpisodeInfo = null;
+
   $scope.select = function(info) {
-    /*
-    info = {
-      title: 'episode title',
-      rating: 9.1,
-      season: 3,
-      episode: 5,
-      imdbId: 'tt3067860'
+    if (!$scope.parsingFinished) {
+      $scope.episodeWaiting = true;
+      $scope.nextEpisodeInfo = info;
+      $scope.$digest();
+      return;
     }
-    */
-    
     $scope.currentEpisode = null;
     if ( $scope.episodes && $scope.episodes[info.season][info.episode] ) { 
       $scope.currentEpisode = $scope.episodes[info.season][info.episode];
@@ -75,7 +75,11 @@ app.controller('appCtrl', function($scope, $http, TvShow) {
     $scope.currentEpisode.rating = parseFloat(Math.round($scope.currentEpisode.rating * 100) / 100).toFixed(1);
     $scope.currentEpisode.linkUrl = 'http://www.imdb.com/title/' + $scope.currentEpisode.imdbId;
     console.log($scope.currentEpisode);
-    $scope.$digest(); // Update page because this was called from d3 not angular
+
+    if (!$scope.episodeWaiting) {
+      $scope.$digest(); // Update page because this was called from d3 not angular
+    }
+    $scope.episodeWaiting = false;
   };
 
   // * search function
@@ -88,6 +92,7 @@ app.controller('appCtrl', function($scope, $http, TvShow) {
     $scope.query = '';
     $scope.hideMainHeader = true;
     $scope.graphShown = true;
+    $scope.parsingFinished = false;
     // - make call to AJAX factory
     $scope.results = {};
     var season = 1;
@@ -111,6 +116,13 @@ app.controller('appCtrl', function($scope, $http, TvShow) {
     })
     .then(function(episodes) {
       $scope.episodes = parseEpisodeData(episodes);
+
+    })
+    .then(function(episodes) {
+      $scope.parsingFinished = true;
+      if ($scope.episodeWaiting) {
+        $scope.select($scope.nextEpisodeInfo);
+      }
     })
     .catch(function(err) {
       console.log(err);
@@ -191,7 +203,7 @@ parsedEpisode = {
   'purchaseLinks': {}
 }
 */
-var parseEpisodeData = function(episodes) {
+var parseEpisodeData = function(episodes, finishedCalback) {
   // episodes argument is an array full of episode objects
   var parsedEpisodes = {};
 
@@ -268,5 +280,6 @@ var parseEpisodeData = function(episodes) {
   }
   
   console.log(parsedEpisodes);
+  
   return parsedEpisodes;
 };
