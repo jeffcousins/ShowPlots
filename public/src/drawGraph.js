@@ -14,6 +14,7 @@ var seasonAvg = [];
 
 
 var drawGraph = function(clickCallback, trendLineStrokeColor) {
+  w = $('#graphContainer').width(); // to fix bootstrap
   trendLineStrokeColor = trendLineStrokeColor || "rgb(255, 255, 255)";
   //clear datasets if graphing new show changed
   if (data_url.Title !== showName) {
