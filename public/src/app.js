@@ -84,7 +84,11 @@ app.controller('appCtrl', function($scope, $http, TvShow) {
 
   // * search function
   $scope.submit = function(queryString) {
-    
+    // This is needed to hide #searchError if an example show on home page
+    // is clicked:
+    $('#searchError').fadeOut(500, function() {
+      $('#searchError').css('visibility', 'hidden');
+    });
     queryString = queryString || $scope.query;
 
     // remove episode info box
@@ -157,29 +161,12 @@ app.controller('appCtrl', function($scope, $http, TvShow) {
         if (usedNames[show.name]) {
           return false;
         }
-        
+
         usedNames[show.name] = true;
         return usedNames[show.name];
       });
       // END HACK
 
-      if (filteredShows.length > 0) {
-        // $('#searchError').css('visibility', 'hidden');
-        $('#searchError').fadeOut(500, function() {
-          $('#searchError').css('visibility', 'hidden');
-        })
-        // $('#searchError').fadeTo('slow', function () {
-        //   $(this).css('visibility', 'hidden');
-        // });
-      } else {
-        // $('#searchError').css('visibility', 'visible');
-        $('#searchError').fadeIn(500, function() {
-          $('#searchError').css('visibility', 'visible');
-        })
-        // $('#searchError').fadeIn('slow', function () {
-        //   $(this).css('visibility', 'visible');
-        // });
-      }
       $scope.shows = filteredShows;
     });
   };
