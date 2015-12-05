@@ -35,10 +35,10 @@ app.controller('appCtrl', function($scope, $http, TvShow) {
     "Google Play": "assets/google-play.png",
     "HBO NOW": "assets/hbo-now.png",
     "Hulu": "assets/hulu.png",
-    "Hulu Plus": "assets/huluplus.png", // I don't think we use this one...
+    "Hulu Plus": "assets/huluplus.png",
     "iTunes": "assets/iTunes.png",
     "Showtime": "assets/showtime.png",
-    "YouTube": "assets/youTube.png"
+    "YouTube": "assets/YouTube.png"
   };
 
   $scope.episodeWaiting = false;
