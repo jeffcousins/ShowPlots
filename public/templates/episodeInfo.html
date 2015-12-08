@@ -21,7 +21,9 @@
       <ul class="watch">
         <li ng-hide="currentEpisode.hasFreeProviders">None found</li>
         <li ng-repeat="(provider, link) in currentEpisode.freeProviders">
-          <a target="_blank" href="{{ link }}"><img class="watch" src="{{ icons[provider] }}"></a>
+          <a target="_blank" href="{{ link }}">
+            <img class="watch" src="{{ icons[provider] }}" alt="{{ provider }}">
+          </a>
         </li>
       </ul>
     </div>
@@ -30,7 +32,9 @@
       <ul class="watch">
         <li ng-hide="currentEpisode.hasSubscriptionProviders">None found</li>
         <li ng-repeat="(provider, link) in currentEpisode.subscriptionProviders">
-          <a target="_blank" href="{{ link }}"><img class="watch" src="{{ icons[provider] }}"></a>
+          <a target="_blank" href="{{ link }}">
+            <img class="watch" src="{{ icons[provider] }}" alt="{{ provider }}">
+          </a>
         </li>
       </ul>
     </div>
@@ -39,7 +43,9 @@
       <ul class="watch">
         <li ng-hide="currentEpisode.hasPurchaseProviders">None found</li>
         <li ng-repeat="(provider, link) in currentEpisode.purchaseProviders">
-          <a target="_blank" href="{{ link }}"><img class="watch" src="{{ icons[provider] }}"></a>
+          <a target="_blank" href="{{ link }}">
+            <img class="watch" src="{{ icons[provider] }}" alt="{{ provider }}">
+          </a>
         </li>
       </ul>
     </div>

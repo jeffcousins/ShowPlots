@@ -134,8 +134,10 @@ angular.module('app.services', [])
         }
       }, function(data, status) {
         // error getting TheMovieDB data
-        console.log(data);
-        console.log(status);
+        if (process.env.NODE_ENV === 'dev') {
+          console.log(data);
+          console.log(status);
+        }
       });
   };
 

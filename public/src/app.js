@@ -74,7 +74,7 @@ app.controller('appCtrl', function($scope, $http, TvShow) {
     // Add trailing zero instead of integer
     $scope.currentEpisode.rating = parseFloat(Math.round($scope.currentEpisode.rating * 100) / 100).toFixed(1);
     $scope.currentEpisode.linkUrl = 'http://www.imdb.com/title/' + $scope.currentEpisode.imdbId;
-    console.log($scope.currentEpisode);
+    // console.log($scope.currentEpisode);
 
     if (!$scope.episodeWaiting) {
       $scope.$digest(); // Update page because this was called from d3 not angular
@@ -131,7 +131,9 @@ app.controller('appCtrl', function($scope, $http, TvShow) {
       }
     })
     .catch(function(err) {
-      console.log(err);
+      if (process.env.NODE_ENV === 'dev') {
+        console.log(err);
+      }
     });
 
   };
