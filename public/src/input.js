@@ -6,7 +6,9 @@ angular.module('app.searchInputDirective', [])
     link: function (scope) {
 
       scope.$watchCollection('shows', function(newVal) {
-        if (newVal && newVal.length > 0) {
+        if (!newVal) return;
+
+        if (newVal.length > 0) {
           $('#searchError').fadeOut(500, function() {
             $('#searchError').css('visibility', 'hidden');
           });
