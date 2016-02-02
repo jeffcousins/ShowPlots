@@ -18,8 +18,6 @@ angular.module('app.services', [])
   };
 
   // get IMBd ratings for the tv show
-  
-  $rootScope.results = {};
   var getEpisodeRatings = function(tvShow, seasonNumber, results) {
     results = results || [];
     return $http({
@@ -35,11 +33,10 @@ angular.module('app.services', [])
       // the api only allows you get retrieve one season at a time
       // recursively retreive all of the seasons
       if (res.data.Response === "True") {
-        $rootScope.results = res.data;
         results = results.concat(res.data);
-        getEpisodeRatings(tvShow, seasonNumber + 1, results);
+        return getEpisodeRatings(tvShow, seasonNumber + 1, results);
       } else {
-        $rootScope.allResults = results;
+        return results;
       }
     });
   };
