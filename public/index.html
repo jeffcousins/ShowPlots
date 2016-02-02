@@ -38,7 +38,7 @@
     <div id="vignette"></div>
     <div id="blackout"></div>
     <img src="assets/hollywood.jpg" id="bg">
-    <div class="container" ng-app="app" ng-controller="appCtrl">
+    <div class="container" ng-app="app" ng-controller="appCtrl" ng-cloak>
 
       <div class="row">
         <header id="mainHeader">
@@ -49,17 +49,10 @@
       <!-- search bar -->
       <search-input></search-input>
 
-      <div id="examples" ng-hide="headerName">
-        Or try...
-          <span ng-click="submit('Breaking Bad')">Breaking Bad</span>,
-          <span ng-click="submit('Dexter')">Dexter</span>, or
-          <span ng-click="submit('The Sopranos')">The Sopranos</span>
-      </div>
-
         <!-- d3 graph section -->
         <div id="graphContainer" class="col-xs-12">
+          <h3 id="graphInstructions" ng-show="graphShown && !currentEpisode">Click on an episode for more info!</h3>
           <graph ng-show="graphShown"></graph>
-          <h3 id="graphInstructions" ng-show="graphShown && !currentEpisode">Mouse over an episode for more info!</h3>
         </div>
       </div>
       <div id="loadingEpisode" ng-show="episodeWaiting">

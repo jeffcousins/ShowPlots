@@ -8,7 +8,7 @@ var app = angular.module('app', [
   'app.services'
   ]);
   // declare one controller for the app
-app.controller('appCtrl', function($scope, $http, TvShow) {
+app.controller('appCtrl', function($scope, $rootScope, $http, TvShow) {
   // The below constants are used by $scope.refreshShows() to filter results
   // before showing end-user suggestions based on their search query.
   var MIN_VOTE_COUNT = 10; // Votes on TheMovieDB.org.
@@ -107,34 +107,39 @@ app.controller('appCtrl', function($scope, $http, TvShow) {
     // TvShow.getBackdrop(queryString);
 
     // retrieve the tv shows ratings
-    TvShow.getEpisodeRatings(queryString, season);
+    TvShow.getEpisodeRatings(queryString, season)
+      .then(function(results) {
+        $rootScope.allResults = results;
+      })
+      .catch(function(err) {
+        console.log(err);
+      });
 
     // retreive guidebox data for all of the tv show's episodes
     TvShow.getImbdId(queryString)
-    .then(function(imbdId) {
-      $scope.headerName = queryString;
-      return TvShow.getShowInfo(imbdId);
-    })
-    .then(function(showInfo) {
-      var guideboxId = showInfo.id;
-      var startEpisode = 0;
-      return TvShow.getEpisodes(guideboxId, startEpisode);
-    })
-    .then(function(episodes) {
-      $scope.episodes = parseEpisodeData(episodes);
-
-    })
-    .then(function(episodes) {
-      $scope.parsingFinished = true;
-      if ($scope.episodeWaiting) {
-        $scope.select($scope.nextEpisodeInfo);
-      }
-    })
-    .catch(function(err) {
-      if (process.env.NODE_ENV === 'dev') {
-        console.log(err);
-      }
-    });
+      .then(function(imbdId) {
+        $scope.headerName = queryString;
+        return TvShow.getShowInfo(imbdId);
+      })
+      .then(function(showInfo) {
+        var guideboxId = showInfo.id;
+        var startEpisode = 0;
+        return TvShow.getEpisodes(guideboxId, startEpisode);
+      })
+      .then(function(episodes) {
+        $scope.episodes = parseEpisodeData(episodes);
+      })
+      .then(function(episodes) {
+        $scope.parsingFinished = true;
+        if ($scope.episodeWaiting) {
+          $scope.select($scope.nextEpisodeInfo);
+        }
+      })
+      .catch(function(err) {
+        if (process.env.NODE_ENV === 'dev') {
+          console.log(err);
+        }
+      });
 
   };
 

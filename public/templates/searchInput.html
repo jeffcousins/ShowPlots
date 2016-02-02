@@ -15,5 +15,11 @@
     </ui-select-choices>
   </ui-select>
   <div id="searchError">No show found!</div>
-<!--   </div> -->
+
+  <div id="examples" ng-hide="headerName">
+    Or try...
+      <span ng-click="submit('Homeland')">Homeland</span>,
+      <span ng-click="submit('Dexter')">Dexter</span>, or
+      <span ng-click="submit('The Sopranos')">The Sopranos</span>
+  </div>
 </div>
