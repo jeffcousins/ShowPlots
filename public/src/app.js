@@ -26,7 +26,7 @@ app.controller('appCtrl', function($scope, $rootScope, $http, TvShow) {
   $scope.graphLoading = false;
   $scope.infoLoading = false;
 
-  $scope.headerName = '';
+  $scope.headerName = 'ShowPlots';
   $scope.hideMainHeader = false;
 
   $scope.icons = {
